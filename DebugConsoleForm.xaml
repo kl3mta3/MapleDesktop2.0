@@ -1,0 +1,23 @@
+﻿<Window x:Name="DebugForm" x:Class="MapleDesktop2._0.DebugConsoleForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MapleDeaktop2._0"
+        mc:Ignorable="d"
+        Title="Debug Console" Height="272" Width="395" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Icon="/MaplebotIcon.ico" ShowInTaskbar="False">
+    <Window.Background>
+        <ImageBrush ImageSource="/Artboard 1@1075.png"/>
+    </Window.Background>
+    <Grid Margin="0,0,0,15">
+        <RichTextBox x:Name="rtb_DebugWindow" Margin="19,18,21,30" Background="Black" Foreground="White">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="btn_ClearConsole" Content="Clear Console" Margin="0,0,21,14" Background="Black" Foreground="#FFF1F1F1" FontSize="9" Height="16" VerticalAlignment="Bottom" Click="btn_ClearConsole_Click" HorizontalAlignment="Right" Width="74"/>
+
+    </Grid>
+</Window>

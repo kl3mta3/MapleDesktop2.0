@@ -1,0 +1,99 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MapleDeaktop2._0.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="QuickLink1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Url...</Value>
+    </Setting>
+    <Setting Name="QuickLink2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Url...</Value>
+    </Setting>
+    <Setting Name="QuickLink3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Url...</Value>
+    </Setting>
+    <Setting Name="QuickLink4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Url...</Value>
+    </Setting>
+    <Setting Name="QuickLink5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Url...</Value>
+    </Setting>
+    <Setting Name="QuickLink6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Url...</Value>
+    </Setting>
+    <Setting Name="QuickLink1Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Void</Value>
+    </Setting>
+    <Setting Name="QuickLink2Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Void</Value>
+    </Setting>
+    <Setting Name="QuickLink3Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Void</Value>
+    </Setting>
+    <Setting Name="QuickLink4Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Void</Value>
+    </Setting>
+    <Setting Name="QuickLink5Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Void</Value>
+    </Setting>
+    <Setting Name="QuickLink6Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Void</Value>
+    </Setting>
+    <Setting Name="QuickApp1Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="QuickApp2Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="QuickApp3Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="QuickApp1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Path...</Value>
+    </Setting>
+    <Setting Name="QuickApp2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Path...</Value>
+    </Setting>
+    <Setting Name="QuickApp3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enter Path...</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyCTEZNcC9Le1GPrU7qdFruVyo52NzFUQtY</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyBr5FK93FZvdZtsEMV8uQX61k-4JTM--lA</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAZU3JNyiv-JiMZg5h7YIP3fUWZr0IwDM4</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAS-EGRuAajTCrjOD5k7pJhPvFc1dWH_1U</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyBWpZx2jJl_gKneHMVKsKGIJvKO1Yjapp4</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAV_MAEY-AOpvWs6KrgigAUcqqxYInaTqo</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey7" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAf4B4EJLnL1FWi9np3Xh6zfW2BaYBDXGM</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey8" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAqUR0P7szTnmyv6AZb38JuuNycJVo12WU</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey9" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAaih4FrKO1MLdepApopbgjTNVdFHutenc</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey10" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyBqTcC84xgHfn6uk3H0mNHlfesYNVtZaA4</Value>
+    </Setting>
+    <Setting Name="YouTubeApiKey11" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AIzaSyAOzDby3TIhafOjNAlJndXIfRRDI6Tmyr4</Value>
+    </Setting>
+    <Setting Name="OpenAiToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Void</Value>
+    </Setting>
+    <Setting Name="TokenSaved" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

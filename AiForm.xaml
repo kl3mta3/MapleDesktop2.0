@@ -5,28 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MapleDeaktop2._0"
         mc:Ignorable="d"
-        Title="Maple Chat" Height="500" Width="580" Icon="/MaplebotIcon.ico" ResizeMode="CanMinimize" Closing="ChatForm_Closing" >
-    <Grid x:Name="Maple_Chat" HorizontalAlignment="Center" Height="484" VerticalAlignment="Center">
+        Title="Maple Chat" Height="500" Width="580" Icon="/MaplebotIcon.ico" Closing="ChatForm_Closing" >
+    <Window.Background>
+        <ImageBrush ImageSource="/Artboard 1@1075.png"/>
+    </Window.Background>
+    <Grid x:Name="Maple_Chat">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/Artboard 1@1075.png"/>
         </Grid.Background>
-        <Button x:Name="btn_ClearConsole" Content="Clear" Margin="523,292,0,0" VerticalAlignment="Top" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FFBB00FF" Click="btn_ClearConsole_Click" HorizontalAlignment="Left" Width="31"/>
-        <RichTextBox x:Name="rtb_MapleInput" Height="NaN" Margin="25,328,112,103" Width="NaN" BorderBrush="#FF0484F6" Background="#FF555562" KeyDown="rtb_MapleInput_KeyDown">
+        <Button x:Name="btn_ClearConsole" Content="Clear" Margin="0,292,26,0" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FFBB00FF" Click="btn_ClearConsole_Click" HorizontalAlignment="Right" Width="31" Height="20" VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtb_MapleInput" Margin="25,328,112,0" BorderBrush="#FF0484F6" Background="#FF555562" KeyDown="rtb_MapleInput_KeyDown" PreviewKeyDown="rtb_MapleInput_KeyDown" Height="53" VerticalAlignment="Top">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,26,93" Height="33" Width="53">
-            <Button x:Name="btn_InputEnter" Content="Enter" RenderTransformOrigin="0.556,0.585" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF0484F6" Click="btn_InputEnter_Click" Margin="-10,-23,11,0" Height="39" VerticalAlignment="Top"/>
-        </Grid>
-        <Button Content="OpenAi.com" HorizontalAlignment="Left" Margin="458,418,0,0" VerticalAlignment="Top" Width="72" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF7A08F4"/>
-        <Button x:Name="btn_SaveAPI" Content="Save" HorizontalAlignment="Left" Margin="353,417,0,0" VerticalAlignment="Top" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF7A08F4" Click="btn_SaveAPI_Click"/>
-        <CheckBox x:Name="ckb_SavedApi" Content="" HorizontalAlignment="Left" Margin="414,412,0,0" VerticalAlignment="Top" BorderBrush="#FF7A08F4" Focusable="False" IsHitTestVisible="False"/>
-        <Label Content="Saved" HorizontalAlignment="Left" Margin="400,418,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.52,1.235"/>
-        <TextBox x:Name="txb_ApiInput" HorizontalAlignment="Left" Margin="42,418,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300" BorderBrush="#FF7A08F4" GotFocus="txb_ApiInput_GotFocus"/>
-        <RichTextBox x:Name="rtb_MapleConsole" Height="NaN" Margin="25,37,26,192" Width="NaN" Background="#FF020202" Foreground="White" BorderBrush="#FFBB00FF" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+        <Button x:Name="btn_InputEnter" Content="Enter" RenderTransformOrigin="0.556,0.585" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF0484F6" Click="btn_InputEnter_Click" Margin="0,335,26,0" HorizontalAlignment="Right" Width="66" Height="39" VerticalAlignment="Top"/>
+
+        <Button Content="OpenAi.com" Margin="0,418,50,0" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF7A08F4" HorizontalAlignment="Right" Width="72" Height="20" VerticalAlignment="Top"/>
+        <Button x:Name="btn_SaveAPI" Content="Save" Margin="0,417,198,0" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF7A08F4" Click="btn_SaveAPI_Click" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="29"/>
+        <CheckBox x:Name="ckb_SavedApi" Content="" Margin="0,412,146,0" BorderBrush="#FF7A08F4" Focusable="False" IsHitTestVisible="False" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" Width="20"/>
+        <Label Content="Saved" Margin="0,418,137,0" FontWeight="Bold" RenderTransformOrigin="0.52,1.235" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="43"/>
+        <TextBox x:Name="txb_ApiInput" Margin="25,418,238,0" TextWrapping="Wrap" Text="" BorderBrush="#FF7A08F4" GotFocus="txb_ApiInput_GotFocus" FontSize="10" Background="#FF767676" Height="15" VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtb_MapleConsole" Margin="26,37,26,0" Background="#FF020202" Foreground="White" BorderBrush="#FFBB00FF" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Height="255" VerticalAlignment="Top">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
@@ -35,7 +44,7 @@
         </RichTextBox>
         <Label Content="Maple Chat" HorizontalAlignment="Left" Margin="25,6,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
         <Label Content="Input" HorizontalAlignment="Left" Margin="25,299,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label Content="(An OpenAi Api Token is Needed.)" HorizontalAlignment="Left" Margin="42,397,0,0" VerticalAlignment="Top" FontSize="10"/>
-        <Button Content="(Click to See Saved Token)" HorizontalAlignment="Left" Margin="223,399,0,0" VerticalAlignment="Top" Background="#00DDDDDD" FontSize="10" MouseDown="Button_MouseDown" MouseUp="Button_MouseUp"/>
+        <Label Content="(An OpenAi Api Token is Needed.)" Margin="43,397,0,0" FontSize="10" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
+        <Button Content="(Click to See Saved Token)" Margin="223,399,0,0" Background="#00DDDDDD" FontSize="10" MouseDown="Button_MouseDown" MouseUp="Button_MouseUp" PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" Height="17" VerticalAlignment="Top" HorizontalAlignment="Left" Width="119"/>
     </Grid>
 </Window>

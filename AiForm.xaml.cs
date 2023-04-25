@@ -31,6 +31,15 @@ namespace MapleDesktop2._0
         {
             rtb_MapleConsole.Document.Blocks.Clear();
             rtb_MapleInput.Document.Blocks.Clear();
+
+
+            if(Properties.Settings.Default.OpenAiToken != "Void")
+            {
+                SetApiSaved();
+            }
+            
+
+
         }
 
 
@@ -44,8 +53,8 @@ namespace MapleDesktop2._0
 
         public async Task StreamGPT()
         {
-
-            OpenAIAPI api = new OpenAIAPI("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"); // shorthand
+            //WriteToMapleConsole("Using API Key"+MainWindow.openAiToken);
+            OpenAIAPI api = new OpenAIAPI(MainWindow.openAiToken); // shorthand
 
             try
             {

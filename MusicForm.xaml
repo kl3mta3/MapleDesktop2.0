@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MapleDeaktop2._0"
         mc:Ignorable="d"
-        Title="Maple Music" Height="493" Width="400" ResizeMode="CanMinimize" Icon="/MaplebotIcon.ico" Closing="Window_Closing">
+        Title="Maple Music" Height="493" Width="400" Icon="/MaplebotIcon.ico" Closing="Window_Closing" ResizeMode="CanMinimize">
     <Window.Background>
         <ImageBrush ImageSource="/Artboard 1@1075.png"/>
     </Window.Background>

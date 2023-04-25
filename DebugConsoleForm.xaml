@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MapleDeaktop2._0"
         mc:Ignorable="d"
-        Title="Debug Console" Height="272" Width="395" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Icon="/MaplebotIcon.ico" ShowInTaskbar="False">
+        Title="Debug Console" Height="272" Width="395" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Icon="/MaplebotIcon.ico">
     <Window.Background>
         <ImageBrush ImageSource="/Artboard 1@1075.png"/>
     </Window.Background>

@@ -26,7 +26,7 @@ namespace MapleDesktop2._0
     {
 
         internal static string openAiToken = Properties.Settings.Default.OpenAiToken;
-        internal static string youtubeApiKey = Properties.Settings.Default.YouTubeApiKey;
+       // internal static string youtubeApiKey = Properties.Settings.Default.YouTubeApiKey;
 
         internal static bool inInput = false;
         internal static bool saveMusic = false;
@@ -55,6 +55,7 @@ namespace MapleDesktop2._0
         internal static MusicForm currentMusicForm = new MusicForm();
         internal static AiForm currentAiForm = new AiForm();
         internal static bool debugConsoleOpen = false;
+      
         public MainWindow()
         {
             InitializeComponent();

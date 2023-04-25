@@ -29,7 +29,7 @@ namespace MapleDesktop2._0
         internal Song urlDownloadResults = new Song();
         internal bool playingTrack = false;
         internal bool trackPaused = false;
-
+        internal int selectedPlaylistTrack=0;
         internal int currentVideoNumber = 0;
         internal int videoPlaylistCount = 0;
         internal Video? currentVideo = null;
@@ -38,6 +38,7 @@ namespace MapleDesktop2._0
         internal bool userPressedNext = false;
         internal bool userPressedStop = false;
         internal bool userpressedSeek = false;
+        internal bool userpressedGo = false;
         internal bool userPressedLast = false;
         internal bool keepCurrentTrack = false;
         internal int currentTrackCurrentTime;
@@ -374,8 +375,7 @@ namespace MapleDesktop2._0
         }
         private async Task AddFileToPlaylist(string request)
         {
-            //Helpers helper = new Helpers();
-            //searchResults.Clear();
+
             await SearchForVideo(request);
             string result = searchResults[0].Url;
             MainWindow.currentMusicForm.WriteToDebugConsole($"Search Results= {result}");
@@ -399,14 +399,14 @@ namespace MapleDesktop2._0
             string allegedVideoPath = "";
             string filepath = "";
             string videoFilePath = "";
-            // string path = "";
+            
             bool keepfile = false;
             MainWindow.currentMusicForm.WriteToDebugConsole($"Extracting MetaData");
 
             if (MainWindow.playAudio || MainWindow.saveMusic)
             {
 
-                //var videoData = await youtube.Videos.GetAsync(videoUrl);
+   
 
                 videoTitle = videoData.Title;
                 videoAuthor = videoData.Author.ChannelTitle;
@@ -421,7 +421,7 @@ namespace MapleDesktop2._0
                 musicFolder = MainWindow.musicSavePath;
                 allegedPath = System.IO.Path.Combine(musicFolder, $"{fileName}.{streamInfo.Container}");
 
-                //filepath = NextAvailableFilename(allegedPath);
+          
 
                 if (!File.Exists(allegedPath))
                 {
@@ -480,18 +480,18 @@ namespace MapleDesktop2._0
                 song.playlistId = playlistid;
 
                 playlist.Add(song);
-                // MainWindow.playlistConsole.ClearPlaylistConsole();  /// come fix as soon as playlist window made
+            
                 MainWindow.music.DisplayAudioPlaylist();
                 MainWindow.currentMusicForm.WriteToDebugConsole($" {song.title} added to Audio Playlist ");
                 MainWindow.currentMusicForm.WriteToDebugConsole($" playlist count {playlist.Count}");
-                //return;
+              
 
             }
             if (MainWindow.saveVideo) /// for video playback
             {
 
                 MainWindow.currentMusicForm.WriteToDebugConsole($"Video Save triggered");
-                //youtube = new YoutubeClient();
+         
                 videoData = searchResults[0];
                 videoTitle = videoData.Title;
                 videoAuthor = videoData.Author.ChannelTitle;
@@ -502,7 +502,7 @@ namespace MapleDesktop2._0
                 try
                 {
                     var streamInfo = streamManifest.GetMuxedStreams().GetWithHighestVideoQuality();
-                    // streamInfo = streamManifest.GetMuxedStreams().
+                
 
 
                     fileName = $"{videoData.Title} by {videoData.Author.ChannelTitle} ";
@@ -512,8 +512,6 @@ namespace MapleDesktop2._0
                     allegedVideoPath = System.IO.Path.Combine(videoFolder, $"{fileName}.{streamInfo.Container}");
                     MainWindow.currentMusicForm.WriteToDebugConsole($"alleged {allegedVideoPath} set for video download");
 
-
-                    // videoFilePath = NextAvailableFilename(allegedVideoPath); // enable to allow duplicate files to be saved.
 
                     if (!File.Exists(allegedVideoPath))
                     {
@@ -547,12 +545,8 @@ namespace MapleDesktop2._0
                 int playlistid = videoPlaylistCount + 1;
                 videoPlaylistCount++;
                 video.playlistId = playlistid;
-                // helper.WriteToMapleConsole($" Song playlist key{playlistCount + 1} value is {song.title}");
-                videoPlaylist.Add(video);
-
-                // helper.WriteToMapleConsole($" {video.title} added to Video Playlist");
-                //helper.WriteToMapleConsole($" playlist count {playlist.Count}");
-                //return;
+                
+               // videoPlaylist.Add(video);
 
             } ///for video Playback  
         }
@@ -561,14 +555,15 @@ namespace MapleDesktop2._0
         internal void DisplayAudioPlaylist()
         {
 
+                MainWindow.currentMusicForm.ClearPlaylistConsole();
 
             List<Song> orderedPlaylist = playlist.OrderBy(i => i.playlistId).ToList();
 
             foreach (Song song in orderedPlaylist)
             {
 
-                 //MainWindow.playlistConsole.WriteToPlaylistConsole($"{song.playlistId}. {song.title}");
-                //MapleHome.musicForm.WriteToMapleConsole($"Song: {song.playlistId}. {song.title}");
+                MainWindow.currentMusicForm.WriteToPlaylistConsole($"{song.playlistId}. {song.title}");
+                
 
             }
 
@@ -616,6 +611,53 @@ namespace MapleDesktop2._0
         }
 
 
+
+        internal void PlayPlaylistTrack( object sender, EventArgs e)
+        {
+            MainWindow.currentMusicForm.WriteToDebugConsole($"PlayList Track Process started");
+            var trackNumber = selectedPlaylistTrack;
+            MainWindow.currentMusicForm.WriteToDebugConsole($"PlayList Count {playlist.Count}");
+            if (playlist.Count <=0 )
+            {
+                MainWindow.currentMusicForm.WriteToDebugConsole($"No songs in playlist");
+                return;
+            }
+            if (trackNumber <= playlist.Count)
+                {
+                MainWindow.currentMusicForm.WriteToDebugConsole($"Searching for Track by ID  {trackNumber}");
+                Song track = SearchForPlaylistTrack(trackNumber);
+
+                //MainWindow.currentMusicForm.WriteToDebugConsole($"Next Track Found....Audio Playback Request for {track.title} Sent");
+                currentTrack = track;
+                currentTrackPlaylistId = track.playlistId;
+
+                PlaySong(track.path, sender, e);
+                selectedPlaylistTrack = 0;
+            }
+
+        }
+
+        internal Song SearchForPlaylistTrack(int trackNumber)
+        {
+            int nextTrackid = trackNumber;
+            Song song = new Song();
+  
+            //nextTrackid = trackNumber;
+            foreach (Song track in playlist)
+            {
+                if (track.playlistId == nextTrackid)
+                {
+                    MainWindow.currentMusicForm.WriteToDebugConsole($"Next song is ID {track.playlistId}");
+
+                    return track;
+
+                }
+            }
+
+            MainWindow.currentMusicForm.WriteToDebugConsole($"No Next Track Found");
+            return song;
+
+        }
 
         internal Song SearchForNextTrack()
         {
@@ -732,42 +774,7 @@ namespace MapleDesktop2._0
             currentTrack = null;
             MainWindow.currentMusicForm.WriteToDebugConsole($"Playlist Cleared");
         }
-        internal void PingYouTube()
-        {
 
-            string apiKey = MainWindow.youtubeApiKey;
-            string url = $"https://www.googleapis.com/youtube/v3/search?key={apiKey}&part=snippet&q=cat";
-
-
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "application/json";
-
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        MainWindow.currentMusicForm.WriteToDebugConsole("YouTube API is working!");
-                    }
-                    else
-                    {
-
-                        MainWindow.currentMusicForm.WriteToDebugConsole("API is not working!");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MainWindow.currentMusicForm.WriteToDebugConsole("Error: " + ex.Message);
-            }
-
-
-
-
-        }
 
         private async Task SearchForVideo(string request)
         {
@@ -775,13 +782,13 @@ namespace MapleDesktop2._0
 
 
             MainWindow.debugConsole.WriteToDebugConsole($"Searching for '{request}'");
-            //MapleHome.debugConsole.WriteToDebugConsole($"With API Key '{MapleHome.youtubeApiKey}'");
+            
 
             if (searchResults.Count > 0)
             {
                 searchResults.Clear();
             }
-            // var videos = await MapleHome.youtube.Search.GetVideosAsync("blender tutorials");
+      
 
             await foreach (var video in MainWindow.youtube.Search.GetVideosAsync(request))
             {
@@ -802,431 +809,6 @@ namespace MapleDesktop2._0
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //MainWindow.currentMusicForm.WriteToDebugConsole($"Searching for '{request}'");
-            //MainWindow.currentMusicForm.WriteToDebugConsole($"With API Key '{MainWindow.youtubeApiKey}'");
-
-            //try
-            //{
-            //    var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //    {
-            //        ApiKey = MainWindow.youtubeApiKey,
-            //        ApplicationName = "Maple"
-            //    });
-            //    // helper.WriteToMapleConsole($"Youtube services created.");
-            //    //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //    var searchListRequest = youtubeService.Search.List("snippet");
-            //    searchListRequest.Q = request;
-            //    searchListRequest.Type = "video";
-            //    searchListRequest.MaxResults = 1;
-
-
-            //    var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //    var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //    // helper.WriteToMapleConsole($"{videoId} Video Id.");
-            //    if (searchResults.Count > 0)
-            //    {
-            //        searchResults.Clear();
-            //    }
-            //    searchResults.Add(videoId);
-
-            //}
-            //catch
-            //{
-            //    try
-            //    {
-
-            //        MainWindow.currentMusicForm.WriteToDebugConsole($"Main Api key failed using 2nd.");
-            //        var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //        {
-            //            ApiKey = Properties.Settings.Default.YouTubeApiKey2,
-            //            ApplicationName = "Maple"
-            //        });
-            //        MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //        //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //        var searchListRequest = youtubeService.Search.List("snippet");
-            //        searchListRequest.Q = request;
-            //        searchListRequest.Type = "video";
-            //        searchListRequest.MaxResults = 1;
-
-
-            //        var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //        var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //        MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //        if (searchResults.Count > 0)
-            //        {
-            //            searchResults.Clear();
-            //        }
-            //        searchResults.Add(videoId);
-            //    }
-            //    catch
-            //    {
-
-            //        try
-            //        {
-
-            //            MainWindow.currentMusicForm.WriteToDebugConsole($"2nd Api key failed using 3rd.");
-            //            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //            {
-            //                ApiKey = Properties.Settings.Default.YouTubeApiKey3,
-            //                ApplicationName = "Maple"
-            //            });
-            //            MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //            //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //            var searchListRequest = youtubeService.Search.List("snippet");
-            //            searchListRequest.Q = request;
-            //            searchListRequest.Type = "video";
-            //            searchListRequest.MaxResults = 1;
-
-
-            //            var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //            var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //            MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //            if (searchResults.Count > 0)
-            //            {
-            //                searchResults.Clear();
-            //            }
-            //            searchResults.Add(videoId);
-            //        }
-            //        catch
-            //        {
-            //            try
-            //            {
-
-            //                MainWindow.currentMusicForm.WriteToDebugConsole($"3rd Api key failed using 4th.");
-            //                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                {
-            //                    ApiKey = Properties.Settings.Default.YouTubeApiKey4,
-            //                    ApplicationName = "Maple"
-            //                });
-            //                MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                var searchListRequest = youtubeService.Search.List("snippet");
-            //                searchListRequest.Q = request;
-            //                searchListRequest.Type = "video";
-            //                searchListRequest.MaxResults = 1;
-
-
-            //                var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                if (searchResults.Count > 0)
-            //                {
-            //                    searchResults.Clear();
-            //                }
-            //                searchResults.Add(videoId);
-            //            }
-            //            catch
-            //            {
-
-            //                try
-            //                {
-
-            //                    MainWindow.currentMusicForm.WriteToDebugConsole($"4th Api key failed using 5th.");
-            //                    var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                    {
-            //                        ApiKey = Properties.Settings.Default.YouTubeApiKey5,
-            //                        ApplicationName = "Maple"
-            //                    });
-            //                    MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                    //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                    var searchListRequest = youtubeService.Search.List("snippet");
-            //                    searchListRequest.Q = request;
-            //                    searchListRequest.Type = "video";
-            //                    searchListRequest.MaxResults = 1;
-
-
-            //                    var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                    var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                    MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                    if (searchResults.Count > 0)
-            //                    {
-            //                        searchResults.Clear();
-            //                    }
-            //                    searchResults.Add(videoId);
-            //                }
-            //                catch
-            //                {
-            //                    try
-            //                    {
-
-            //                        MainWindow.currentMusicForm.WriteToDebugConsole($"5th Api key failed using6th.");
-            //                        var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                        {
-            //                            ApiKey = Properties.Settings.Default.YouTubeApiKey6,
-            //                            ApplicationName = "Maple"
-            //                        });
-            //                        MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                        //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                        var searchListRequest = youtubeService.Search.List("snippet");
-            //                        searchListRequest.Q = request;
-            //                        searchListRequest.Type = "video";
-            //                        searchListRequest.MaxResults = 1;
-
-
-            //                        var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                        var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                        MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                        if (searchResults.Count > 0)
-            //                        {
-            //                            searchResults.Clear();
-            //                        }
-            //                        searchResults.Add(videoId);
-            //                    }
-            //                    catch
-            //                    {
-            //                        try
-            //                        {
-
-            //                            MainWindow.currentMusicForm.WriteToDebugConsole($"6th Api key failed using7th.");
-            //                            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                            {
-            //                                ApiKey = Properties.Settings.Default.YouTubeApiKey7,
-            //                                ApplicationName = "Maple"
-            //                            });
-            //                            MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                            //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                            var searchListRequest = youtubeService.Search.List("snippet");
-            //                            searchListRequest.Q = request;
-            //                            searchListRequest.Type = "video";
-            //                            searchListRequest.MaxResults = 1;
-
-
-            //                            var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                            var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                            MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                            if (searchResults.Count > 0)
-            //                            {
-            //                                searchResults.Clear();
-            //                            }
-            //                            searchResults.Add(videoId);
-            //                        }
-            //                        catch
-            //                        {
-
-            //                            try
-            //                            {
-
-            //                                MainWindow.currentMusicForm.WriteToDebugConsole($"7th Api key failed using 9th.");
-            //                                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                                {
-            //                                    ApiKey = Properties.Settings.Default.YouTubeApiKey8,
-            //                                    ApplicationName = "Maple"
-            //                                });
-            //                                MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                                //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                                var searchListRequest = youtubeService.Search.List("snippet");
-            //                                searchListRequest.Q = request;
-            //                                searchListRequest.Type = "video";
-            //                                searchListRequest.MaxResults = 1;
-
-
-            //                                var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                                var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                                MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                                if (searchResults.Count > 0)
-            //                                {
-            //                                    searchResults.Clear();
-            //                                }
-            //                                searchResults.Add(videoId);
-            //                            }
-            //                            catch
-            //                            {
-
-            //                                try
-            //                                {
-
-            //                                    MainWindow.currentMusicForm.WriteToDebugConsole($"8th Api key failed using 9th.");
-            //                                    var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                                    {
-            //                                        ApiKey = Properties.Settings.Default.YouTubeApiKey9,
-            //                                        ApplicationName = "Maple"
-            //                                    });
-            //                                    MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                                    //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                                    var searchListRequest = youtubeService.Search.List("snippet");
-            //                                    searchListRequest.Q = request;
-            //                                    searchListRequest.Type = "video";
-            //                                    searchListRequest.MaxResults = 1;
-
-
-            //                                    var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                                    var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                                    MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                                    if (searchResults.Count > 0)
-            //                                    {
-            //                                        searchResults.Clear();
-            //                                    }
-            //                                    searchResults.Add(videoId);
-            //                                }
-            //                                catch
-            //                                {
-
-            //                                    try
-            //                                    {
-
-            //                                        MainWindow.currentMusicForm.WriteToDebugConsole($"9th Api key failed using 10th.");
-            //                                        var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                                        {
-            //                                            ApiKey = Properties.Settings.Default.YouTubeApiKey10,
-            //                                            ApplicationName = "Maple"
-            //                                        });
-            //                                        MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                                        //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                                        var searchListRequest = youtubeService.Search.List("snippet");
-            //                                        searchListRequest.Q = request;
-            //                                        searchListRequest.Type = "video";
-            //                                        searchListRequest.MaxResults = 1;
-
-
-            //                                        var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                                        var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                                        MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                                        if (searchResults.Count > 0)
-            //                                        {
-            //                                            searchResults.Clear();
-            //                                        }
-            //                                        searchResults.Add(videoId);
-            //                                    }
-            //                                    catch
-            //                                    {
-
-            //                                        try
-            //                                        {
-
-            //                                            MainWindow.currentMusicForm.WriteToDebugConsole($"10th Api key failed using Last.");
-            //                                            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            //                                            {
-            //                                                ApiKey = Properties.Settings.Default.YouTubeApiKey11,
-            //                                                ApplicationName = "Maple"
-            //                                            });
-            //                                            MainWindow.currentMusicForm.WriteToDebugConsole($"Youtube services created.");
-            //                                            //var searchListRequest = youtubeService.Search.List("snippet");
-
-            //                                            var searchListRequest = youtubeService.Search.List("snippet");
-            //                                            searchListRequest.Q = request;
-            //                                            searchListRequest.Type = "video";
-            //                                            searchListRequest.MaxResults = 1;
-
-
-            //                                            var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            //                                            var videoId = searchListResponse.Items[0].Id.VideoId;
-
-            //                                            MainWindow.currentMusicForm.WriteToDebugConsole($"{videoId} Video Id.");
-            //                                            if (searchResults.Count > 0)
-            //                                            {
-            //                                                searchResults.Clear();
-            //                                            }
-            //                                            searchResults.Add(videoId);
-            //                                        }
-            //                                        catch (Exception ex)
-            //                                        {
-
-
-            //                                            MainWindow.currentMusicForm.WriteToDebugConsole($"All API failed. reason:  {ex.Message}");
-
-            //                                        }
-
-
-
-
-            //                                    }
-
-
-
-
-
-            //                                }
-
-
-
-
-
-            //                            }
-
-
-
-
-
-            //                        }
-
-
-
-
-
-            //                    }
-
-
-
-
-            //                }
-
-
-
-
-
-
-
-
-
-            //            }
-
-
-            //        }
-
-
-
-
-
-
-            //    }
-            //}
-
-            // helper.WriteToMapleConsole($"{searchResults[0]} Results Id.");
-            // helper.WriteToMapleConsole($"{searchResults.Count} Total Results Found.");
 
         }
 

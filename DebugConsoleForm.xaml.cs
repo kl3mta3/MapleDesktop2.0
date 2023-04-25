@@ -38,7 +38,7 @@ namespace MapleDesktop2._0
         {
             //rtb_DebugWindow.Text = rtb_DebugWindow.Text + Environment.NewLine + message;
 
-            rtb_DebugWindow.AppendText(message);
+            rtb_DebugWindow.AppendText(Environment.NewLine + message);
             rtb_DebugWindow.ScrollToEnd();
         }
 

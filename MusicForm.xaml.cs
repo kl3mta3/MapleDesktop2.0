@@ -20,6 +20,7 @@ namespace MapleDesktop2._0
     {
         internal static DispatcherTimer timer1 = new DispatcherTimer();
         internal static DebugConsoleForm currentDebugConsole = new DebugConsoleForm();
+        internal static PlaylistConsoleForm currentPlaylistConsole = new PlaylistConsoleForm();
         public MusicForm()
         {
             InitializeComponent();
@@ -97,14 +98,13 @@ namespace MapleDesktop2._0
         void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
 
-            //Debug.Assert(!InvokeRequired, "PlaybackStopped on wrong thread");
-            //Helpers helper = new Helpers();
+
             WriteToDebugConsole("Tick Timer stopped");
             MainWindow.music.trackPaused = false;
 
             WriteToDebugConsole("Playback Stopped");
             MainWindow.music.playingTrack = false;
-            //helper.DisplayCurrentSongInfo("-", "-", "-", "-");
+
             timer1.Stop();
             if (!MainWindow.music.userPressedStop)
             {
@@ -119,7 +119,6 @@ namespace MapleDesktop2._0
             }
 
             CleanUp();
-            //EnableButtons(false);
             lbl_CurrentTrackPosition.Content = "00:00";
 
             MainWindow.music.currentTrack = null;
@@ -128,7 +127,7 @@ namespace MapleDesktop2._0
 
 
 
-            if (MainWindow.music.playlistCount > 1 && !MainWindow.music.userPressedStop && !MainWindow.music.userPressedLast)
+            if (MainWindow.music.playlistCount > 1 && !MainWindow.music.userPressedStop && !MainWindow.music.userPressedLast&& !MainWindow.music.userpressedGo)
             {
                 currentDebugConsole.WriteToDebugConsole($"Next Track Triggered After Stop");
                 MainWindow.music.PlayNextTrack(sender, e);
@@ -136,6 +135,7 @@ namespace MapleDesktop2._0
 
                 MainWindow.music.userPressedLast = false;
                 MainWindow.music.userPressedNext = false;
+                MainWindow.music.userpressedGo = false;
                 return;
             }
             if (MainWindow.music.userPressedLast)
@@ -147,6 +147,7 @@ namespace MapleDesktop2._0
 
                 MainWindow.music.userPressedLast = false;
                 MainWindow.music.userPressedNext = false;
+                MainWindow.music.userpressedGo = false;
                 return;
             }
             if (MainWindow.music.userPressedLast)
@@ -157,11 +158,23 @@ namespace MapleDesktop2._0
 
                 MainWindow.music.userPressedLast = false;
                 MainWindow.music.userPressedNext = false;
+                MainWindow.music.userpressedGo = false;
+                return;
+            }
+            if (MainWindow.music.userpressedGo)
+            {
+
+                currentDebugConsole.WriteToDebugConsole($"Playlist Track Triggered ");
+                MainWindow.music.PlayPlaylistTrack(sender, e);
+                MainWindow.music.userpressedGo = false;
+                MainWindow.music.userPressedLast = false;
+                MainWindow.music.userPressedNext = false;
                 return;
             }
             currentDebugConsole.WriteToDebugConsole($"Reached last of OnStop ");
             MainWindow.music.userPressedLast = false;
             MainWindow.music.userPressedNext = false;
+            MainWindow.music.userpressedGo = false;
             //MainWindow.music.userPressedStop = false;
             //MainWindow.music.userpressedSeek = false;
         }
@@ -233,6 +246,49 @@ namespace MapleDesktop2._0
         }
 
 
+
+        public void togglePlaylistConsole()
+        {
+            MainWindow.playlistConsoleOpen = !MainWindow.playlistConsoleOpen;
+            if (MainWindow.playlistConsoleOpen)
+            {
+                PlaylistConsoleForm current = new PlaylistConsoleForm();
+                currentPlaylistConsole = current;
+                currentPlaylistConsole.Show();
+                MainWindow.music.DisplayAudioPlaylist();
+            }
+            else
+            {
+                currentPlaylistConsole.Hide();
+
+            }
+
+        }
+
+
+
+
+        internal void WriteToPlaylistConsole(string value)
+        {
+
+
+            currentPlaylistConsole.WriteToPlaylistConsole(value);
+
+
+        }
+
+        internal void ClearPlaylistConsole()
+        {
+
+
+            currentPlaylistConsole.ClearPlaylistConsole();
+
+
+        }
+
+
+
+
         private void ckb_SaveVideo_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -264,22 +320,22 @@ namespace MapleDesktop2._0
 
         public void DisplayCurrentSongInfo(string _title, string _artist, string _url, string _id)
         {
-            lbl_PlayingName.Content = _title;
-
-            lbl_PlayingArtist.Content = _artist;
-
+           //lbl_PlayingName.Content = _title;
+            txb_PlayingName.Text= _title;
+            //lbl_PlayingArtist.Content = _artist;
+            txb_PlayingArtist.Text= _artist;
            // lbl_PlayingLink.Content = _url;
             txb_PlayingLink.Text = _url;
             lbl_PlayTrackPlaylistID.Content = _id;
         }
 
-        internal void SetProgressBarCurrentValue(double _value)
+        internal void SetProgressBarCurrentValue(int _value)
         {
             if (_value <= tbr_TrackProgressBar.Maximum)
             {
-                double roundedValue = Math.Round(_value);
-                // WriteToMapleConsole("TrackProgressBar.Value" + roundedValue.ToString());
-                tbr_TrackProgressBar.Value = (int)roundedValue;
+               int roundedValue = (int)Math.Round((double)_value);
+                //currentDebugConsole.WriteToDebugConsole("TrackProgressBar.Value" + roundedValue.ToString());
+                tbr_TrackProgressBar.Value = roundedValue;
             }
 
 
@@ -472,6 +528,7 @@ namespace MapleDesktop2._0
             try
             {
                 MainWindow.music.userpressedSeek = true;
+                currentDebugConsole.WriteToDebugConsole("Mouse pressed down progressbar UserPressedSeek set to true");
             }
             catch (Exception ex)
             {
@@ -483,10 +540,10 @@ namespace MapleDesktop2._0
         {
             try
             {
-                MainWindow.music.progressBarCurrentTime = (int)tbr_TrackProgressBar.Value;
+                MainWindow.music.progressBarCurrentTime = tbr_TrackProgressBar.Value;
                 MainWindow.music.userpressedSeek = false;
                 MainWindow.audioFile.CurrentTime = TimeSpan.FromSeconds(MainWindow.music.progressBarCurrentTime);
-
+                currentDebugConsole.WriteToDebugConsole("Setting track to new time.");
             }
             catch (Exception ex)
             {
@@ -717,6 +774,11 @@ namespace MapleDesktop2._0
                 MainWindow.music.ClearAudioPlaylist();
             }
            
+        }
+
+        private void btn_Playlist_Click(object sender, RoutedEventArgs e)
+        {
+            togglePlaylistConsole();
         }
     }
 }

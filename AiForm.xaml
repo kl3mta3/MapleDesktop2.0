@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MapleDeaktop2._0"
         mc:Ignorable="d"
-        Title="Maple Chat" Height="500" Width="580" Icon="/MaplebotIcon.ico" ResizeMode="CanMinimize" ShowInTaskbar="False" Closing="ChatForm_Closing" >
+        Title="Maple Chat" Height="500" Width="580" Icon="/MaplebotIcon.ico" ResizeMode="CanMinimize" Closing="ChatForm_Closing" >
     <Grid x:Name="Maple_Chat" HorizontalAlignment="Center" Height="484" VerticalAlignment="Center">
         <Grid.Background>
             <ImageBrush ImageSource="/Artboard 1@1075.png"/>

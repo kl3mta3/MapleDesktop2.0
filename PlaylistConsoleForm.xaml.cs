@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,8 @@ namespace MapleDesktop2._0
     /// </summary>
     public partial class PlaylistConsoleForm : Window
     {
+
+        internal static int playlistTrack = 0;
         public PlaylistConsoleForm()
         {
             InitializeComponent();
@@ -49,6 +52,28 @@ namespace MapleDesktop2._0
 
         }
 
+        private void btn_GoToTrack_Click(object sender, RoutedEventArgs e)
+        {
 
+
+
+
+
+
+
+
+
+
+            if (txb_playlistTrackSelect.Text!="")
+            {
+                MainWindow.music.selectedPlaylistTrack = Int32.Parse(txb_playlistTrackSelect.Text);
+                MainWindow.currentMusicForm.WriteToDebugConsole("txb_playlist.text" + txb_playlistTrackSelect.Text);
+                MainWindow.currentMusicForm.WriteToDebugConsole("selectedPlaylistTrack"+MainWindow.music.selectedPlaylistTrack.ToString());
+                MainWindow.music.userpressedGo = true;
+                MainWindow.wavePlayer.Stop();
+               // MainWindow.music.PlayPlaylistTrack(sender, e);
+            }
+
+        }
     }
 }

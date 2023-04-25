@@ -10,16 +10,23 @@
         <ImageBrush ImageSource="/Artboard 1@1075.png"/>
     </Window.Background>
     <Grid>
-        <RichTextBox x:Name="rtb_PlaylistConsole" Margin="27,27,27,42" Background="Black" Foreground="#FFFDFDFD" FontSize="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <RichTextBox x:Name="rtb_PlaylistConsole" Margin="27,31,27,38" Background="Black" Foreground="#FFFDFDFD" FontSize="10" Grid.ColumnSpan="2">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="" FontFamily="Cooper Black" />
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="btn_ClearPlaylist" Content="Clear Playlist" HorizontalAlignment="Left" Margin="367,297,0,0" VerticalAlignment="Top" Width="56" Background="Black" Foreground="White" BorderBrush="White" FontSize="8"/>
-        <TextBox HorizontalAlignment="Left" Margin="128,300,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="29"/>
-        <Label Content="Skip to Track #:" HorizontalAlignment="Left" Margin="27,294,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
-        <Button x:Name="btn_GoToTrack" Content="Go" HorizontalAlignment="Left" Margin="169,300,0,0" VerticalAlignment="Top" Background="#FF080808" Foreground="#FFFCFBFB" BorderBrush="#FFFDFCFC" Width="26" FontSize="10" Height="16"/>
+        <Button x:Name="btn_ClearPlaylist" Content="Clear Playlist" HorizontalAlignment="Right" Margin="0,0,27,16" Width="56" Background="Black" Foreground="White" BorderBrush="White" FontSize="8" Height="15" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txb_playlistTrackSelect" HorizontalAlignment="Left" Margin="116,0,0,14" TextWrapping="Wrap" Text="" Width="21" Height="14" VerticalAlignment="Bottom" Grid.ColumnSpan="2" SnapsToDevicePixels="False" FontSize="11" Visibility="Visible" Background="#26FFFFFF"/>
+        <Label Content="Skip to Track #:" HorizontalAlignment="Left" Margin="27,0,0,8" FontWeight="Bold" FontSize="11" Height="26" VerticalAlignment="Bottom" Grid.ColumnSpan="2" SnapsToDevicePixels="False" Visibility="Visible"/>
+        <Button x:Name="btn_GoToTrack" Content="Go" HorizontalAlignment="Left" Margin="142,0,0,14" Background="#FF080808" Foreground="#FFFCFBFB" BorderBrush="#FFFDFCFC" Width="19" FontSize="9" Height="14" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Click="btn_GoToTrack_Click" SnapsToDevicePixels="False" Visibility="Visible"/>
+        <Label Content="#" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="27,31,0,0" VerticalAlignment="Top" Foreground="#FFFBFBFB" FontWeight="Bold"/>
+        <Label Content="Title" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="153,31,0,0" VerticalAlignment="Top" Foreground="#FFFBFBFB" FontWeight="Bold"/>
+        <Image HorizontalAlignment="Center" Width="106" Source="/Maple logo.png" Stretch="Fill" Height="27" VerticalAlignment="Top" Grid.Column="1" Margin="0,3,0,0"/>
     </Grid>
 </Window>

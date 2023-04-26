@@ -48,7 +48,7 @@ namespace MapleDesktop2._0
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            e.Cancel = true;
+           // e.Cancel = true;
            
             MainWindow.debugConsoleOpen = false;
         }

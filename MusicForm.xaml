@@ -29,17 +29,17 @@
         <Label Content="Maple Music" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
         <TextBox x:Name="txb_SongInput" HorizontalAlignment="Center" Margin="0,74,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="324" Height="23" KeyDown="txb_SongInput_KeyDown"/>
         <Button x:Name="btn_Play" Content="Play" HorizontalAlignment="Left" Margin="38,104,0,0" VerticalAlignment="Top" Width="60" Background="#FF020202" Foreground="White" BorderBrush="#00707070" Height="25" Click="btn_Play_Click"/>
-        <RadioButton x:Name="rbn_PlayAudio" Content="Audio" HorizontalAlignment="Left" Margin="303,53,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" IsChecked="True" Unchecked="rbn_PlayAudio_Unchecked"/>
+        <RadioButton x:Name="rbn_PlayAudio" Content="Audio" HorizontalAlignment="Left" Margin="303,53,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" IsChecked="True" Unchecked="rbn_PlayAudio_Unchecked" Checked="rbn_PlayAudio_Checked"/>
         <CheckBox x:Name="ckb_SaveMusic" Content="Save Music" HorizontalAlignment="Left" Margin="168,110,0,0" VerticalAlignment="Top" FontWeight="Bold" Checked="ckb_SaveMusic_Checked" Unchecked="ckb_SaveMusic_Unchecked"/>
         <CheckBox x:Name="ckb_SaveVideo" Content="Save Video" HorizontalAlignment="Left" Margin="266,110,0,0" VerticalAlignment="Top" FontWeight="Bold" Checked="ckb_SaveVideo_Checked" Unchecked="ckb_SaveVideo_Unchecked"/>
-        <RadioButton x:Name="rbn_PlayVideo" Content="Video" HorizontalAlignment="Left" Margin="239,53,0,0" VerticalAlignment="Top" FontSize="14" IsEnabled="False" FontStyle="Italic" FontWeight="Bold" Foreground="#FF474343" Background="#FF050505" Opacity="0.75"/>
+        <RadioButton x:Name="rbn_PlayVideo" Content="Video" HorizontalAlignment="Left" Margin="239,53,0,0" VerticalAlignment="Top" FontSize="14" FontStyle="Italic" FontWeight="Bold" Foreground="Black" Background="White" Opacity="0.75" IsEnabled="False" Visibility="Hidden"/>
         <Label x:Name="lbl_PlayingStatus" Content="-" HorizontalAlignment="Center" Margin="0,141,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="53,173,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
         <Label x:Name="lbl_PlayingName"  HorizontalAlignment="Left" Margin="98,173,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12">
-        <TextBlock x:Name="txb_PlayingName"  TextWrapping="WrapWithOverflow" Width="240" MaxWidth="240" FontSize="9" TextTrimming="WordEllipsis" >-</TextBlock>
+            <TextBlock x:Name="txb_PlayingName"  TextWrapping="WrapWithOverflow" Width="240" MaxWidth="240" FontSize="9" TextTrimming="WordEllipsis" >-</TextBlock>
         </Label>
-        
-        
+
+
         <Label Content="Artist:" HorizontalAlignment="Left" Margin="53,210,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
         <Label x:Name="lbl_PlayingArtist" HorizontalAlignment="Left" Margin="98,210,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12">
             <TextBlock x:Name="txb_PlayingArtist"  TextWrapping="WrapWithOverflow" Width="240" MaxWidth="240" FontSize="9" TextTrimming="WordEllipsis" >-</TextBlock>
@@ -60,13 +60,14 @@
         <Button x:Name="lbl_PlayTrackPlaylistID" Content="-" HorizontalAlignment="Left" Margin="193,366,0,0" VerticalAlignment="Top" Background="#00DDDDDD" BorderBrush="#00707070" FontWeight="Bold"/>
         <Slider x:Name="volumeSlider3" HorizontalAlignment="Left" Margin="261,368,0,0" VerticalAlignment="Top" Width="92" ValueChanged="OnVolumeSliderChanged" Maximum="100" LargeChange="10" SmallChange="1" Cursor="Help" Value="50"/>
         <Label Content="Volume" HorizontalAlignment="Left" Margin="279,377,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
-        <Label Content="Files are Saved to" HorizontalAlignment="Left" Margin="100,399,0,0" VerticalAlignment="Top" FontSize="9"/>
-        <Button x:Name="linkLabel1" Content="\AppData\Roaming\Maple" HorizontalAlignment="Left" Margin="179,402,0,0" VerticalAlignment="Top" Background="#000450B7" BorderBrush="#00707070" FontSize="9" FontStyle="Italic" FontWeight="Bold" Foreground="#FF020202" Click="linkLabel1_Click"/>
+        <Label Content="Files are Saved to" HorizontalAlignment="Left" Margin="109,399,0,0" VerticalAlignment="Top" FontSize="9"/>
+        <Button x:Name="linkLabel1" Content="\AppData\Roaming\Maple" HorizontalAlignment="Left" Margin="188,402,0,0" VerticalAlignment="Top" Background="#000450B7" BorderBrush="#00707070" FontSize="9" FontStyle="Italic" FontWeight="Bold" Foreground="#FF020202" Click="linkLabel1_Click"/>
         <Button x:Name="btn_MusicDebugConsoleToggle" Content="Debug" Margin="0,418,43,0" VerticalAlignment="Top" Background="#FF080808" Foreground="#FFFCFBFB" BorderBrush="#FFFDFCFC" FontSize="6" Click="btn_MusicDebugConsoleToggle_Click" HorizontalAlignment="Right" Width="37"/>
         <Label x:Name="lbl_PlayingLink" Cursor="Hand" HorizontalAlignment="Left" Margin="100,249,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12" PreviewMouseLeftButtonUp="lbl_PlayingLink_PreviewMouseLeftButtonUp" FontStretch="ExtraCondensed">
 
             <TextBlock x:Name="txb_PlayingLink" TextDecorations="Underline" TextWrapping="WrapWithOverflow" Width="240" MaxWidth="240" Cursor="Hand" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" FontSize="9" TextTrimming="WordEllipsis" PreviewMouseLeftButtonUp="TextBlock_PreviewMouseLeftButtonUp" >-</TextBlock>
         </Label>
+        <Button x:Name="btn_WebWindowToggle" Content="Web Window" Margin="47,415,0,0" VerticalAlignment="Top" Background="#FF080808" Foreground="#FFFCFBFB" BorderBrush="#FFFDFCFC" FontSize="6" HorizontalAlignment="Left" Width="56" Height="15" Click="btn_WebWindowToggle_Click"/>
 
     </Grid>
 

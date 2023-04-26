@@ -21,6 +21,9 @@ namespace MapleDesktop2._0
         internal static DispatcherTimer timer1 = new DispatcherTimer();
         internal static DebugConsoleForm currentDebugConsole = new DebugConsoleForm();
         internal static PlaylistConsoleForm currentPlaylistConsole = new PlaylistConsoleForm();
+        internal static WebWindow currentWebWindow = new WebWindow();
+       
+        //internal static CefSharp.Wpf.ChromiumWebBrowser webBrowser = currentWebWindow.webBrowser;
         public MusicForm()
         {
             InitializeComponent();
@@ -245,7 +248,25 @@ namespace MapleDesktop2._0
 
         }
 
+ 
 
+        public void toggleWebWindowConsole()
+        {
+            MainWindow.webWindowOpen = !MainWindow.webWindowOpen;
+            if (MainWindow.webWindowOpen)
+            {
+                WebWindow current = new WebWindow();
+                currentWebWindow = current;
+                currentWebWindow.Show();
+
+            }
+            else
+            {
+                currentWebWindow.Hide();
+
+            }
+
+        }
 
         public void togglePlaylistConsole()
         {
@@ -285,9 +306,37 @@ namespace MapleDesktop2._0
 
 
         }
+        internal void ResetWebWindow()
+        {
+            currentWebWindow = null;
 
 
+        }
+        internal void PlayVideoInWindow(string url)
+        {
+          
+            MainWindow.currentMusicForm.WriteToDebugConsole(" MainWindow.webWindowOpen = true;");
+            if (!MainWindow.webWindowOpen)
+            {
+                if (currentWebWindow == null)
+                {
+                    WebWindow current = new WebWindow();
+                    currentWebWindow = current;
+                }
 
+            }
+                currentWebWindow.Show();
+                currentWebWindow.PlayVideo(url);
+
+          
+        }
+        internal void PostPlaylistCount()
+        {
+
+
+            MainWindow.currentMusicForm.WriteToDebugConsole("Playlist Count " + playlist.Count);
+
+        }
 
         private void ckb_SaveVideo_CheckedChanged(object sender, EventArgs e)
         {
@@ -482,7 +531,8 @@ namespace MapleDesktop2._0
 
                MainWindow.playAudio = false;
                 MainWindow.playVideo = true;
-                //WriteToMapleConsole("Playing Video Files");
+
+            currentDebugConsole.WriteToDebugConsole("MainWindow.playAudio = false;\r\n MainWindow.playVideo = true");
             
         }
 
@@ -697,20 +747,20 @@ namespace MapleDesktop2._0
 
         private void lbl_PlayingLink_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            string link = MainWindow.music.currentTrack.url;
-            try
-            {
-                Process proc = new Process();
-                proc.StartInfo.UseShellExecute = true;
-                proc.StartInfo.FileName = link;
-                proc.Start();
+            //////string link = MainWindow.music.currentTrack.url;
+            //////try
+            //////{
+            //////    Process proc = new Process();
+            //////    proc.StartInfo.UseShellExecute = true;
+            //////    proc.StartInfo.FileName = link;
+            //////    proc.Start();
 
 
-            }
-            catch (Exception ex)
-            {
-                WriteToDebugConsole(ex.Message);
-            }
+            //////}
+            //////catch (Exception ex)
+            //////{
+            //////    WriteToDebugConsole(ex.Message);
+            //////}
         }
 
         private void linkLabel1_Click(object sender, RoutedEventArgs e)
@@ -748,20 +798,42 @@ namespace MapleDesktop2._0
 
         private void TextBlock_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+
+            string timeStamp = MainWindow.audioFile.CurrentTime.ToString();
+            currentDebugConsole.WriteToDebugConsole(timeStamp);
+            string[] strings = timeStamp.Split(':');
+            string hours = strings[0];
+            currentDebugConsole.WriteToDebugConsole("Hours "+hours);
+            string minutes = strings[1];
+            currentDebugConsole.WriteToDebugConsole("Minutes " + minutes);
+            string rawSeconds= strings[2];
+            currentDebugConsole.WriteToDebugConsole("Raw Seconds " + rawSeconds);
+
+            string[] secondsRounded = rawSeconds.Split('.');
+            string seconds = secondsRounded[0];
+            currentDebugConsole.WriteToDebugConsole("Seconds " + seconds);
+
+
             string link = MainWindow.music.currentTrack.url;
-            try
-            {
-                Process proc = new Process();
-                proc.StartInfo.UseShellExecute = true;
-                proc.StartInfo.FileName = link;
-                proc.Start();
 
+            string stampedUrl = $"{link}&t={minutes}m{seconds}s&autoplay=1";
+            currentDebugConsole.WriteToDebugConsole("StampedURl " + stampedUrl);
+            if(!MainWindow.music.trackPaused)
+            {
+                PausePlayer();
 
             }
-            catch (Exception ex)
+            if (!MainWindow.webWindowOpen)
             {
-                WriteToDebugConsole(ex.Message);
+                toggleWebWindowConsole();
+                currentWebWindow.PlayVideo(stampedUrl);
             }
+            else
+            {
+                currentWebWindow.PlayVideo(stampedUrl);
+            }
+
+
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -779,6 +851,20 @@ namespace MapleDesktop2._0
         private void btn_Playlist_Click(object sender, RoutedEventArgs e)
         {
             togglePlaylistConsole();
+        }
+
+        private void rbn_PlayAudio_Checked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.playAudio = true;
+            MainWindow.playVideo = false;
+            currentDebugConsole.WriteToDebugConsole(" MainWindow.playAudio = true;\r\n            MainWindow.playVideo = false;");
+        }
+
+        private void btn_WebWindowToggle_Click(object sender, RoutedEventArgs e)
+        {
+            
+                toggleWebWindowConsole();
+            
         }
     }
 }

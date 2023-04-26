@@ -17,6 +17,9 @@ using System.Windows.Navigation;
 //using System.Windows.Shapes;
 using YoutubeExplode;
 using System.IO;
+using CefSharp.Wpf;
+using CefSharp;
+
 namespace MapleDesktop2._0
 {
     /// <summary>
@@ -48,14 +51,21 @@ namespace MapleDesktop2._0
         internal static MusicSystem music = new MusicSystem();
         internal static MusicForm musicForm = new MusicForm();
         internal static AiForm aiForm = new AiForm();
+        internal static WebWindow webWindow = new WebWindow();
+        internal static LinksForm LinksForm = new LinksForm();
         internal static DebugConsoleForm debugConsole = new DebugConsoleForm();
         internal static bool aiFormOpen = false;
         internal static bool musicFormOpen = false;
+        internal static bool linksFormOpen = false;
         internal static bool playlistConsoleOpen = false;
+        internal static bool webWindowOpen = false;
+        internal static bool currentSetLinksFormOpen = false;
+        internal static bool currentSetAppsFormOpen = false;
         internal static MusicForm currentMusicForm = new MusicForm();
         internal static AiForm currentAiForm = new AiForm();
+       internal static LinksForm currentLinksForm = new LinksForm();
         internal static bool debugConsoleOpen = false;
-      
+
         public MainWindow()
         {
             InitializeComponent();
@@ -70,9 +80,13 @@ namespace MapleDesktop2._0
                 Directory.CreateDirectory(videoSavePath);
 
             }
+            
+           
+           
         }
 
-        private void btn_ChatForm_Click(object sender, RoutedEventArgs e)
+
+            private void btn_ChatForm_Click(object sender, RoutedEventArgs e)
         {
             aiFormOpen=!aiFormOpen;
 
@@ -127,6 +141,26 @@ namespace MapleDesktop2._0
             }
         }
 
+        
+
+
+
+        private void btn_LinksForm_Click(object sender, RoutedEventArgs e)
+        {
+            linksFormOpen = !linksFormOpen;
+
+            if (linksFormOpen)
+            {
+                LinksForm current = new LinksForm();
+                currentLinksForm = current;
+                currentLinksForm.Show();
+            }
+            else
+            {
+
+                currentLinksForm.Hide();
+            }
+        }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Application.Current.Shutdown();

@@ -11,12 +11,12 @@
             <ImageBrush ImageSource="/Artboard 1@1075.png"/>
         </Grid.Background>
         <Image Source="/Music Bg Panel.png" Margin="10,11,10,11" Stretch="Fill"/>
-        <Image HorizontalAlignment="Center" Height="60" Margin="0,12,0,0" VerticalAlignment="Top" Width="155" RenderTransformOrigin="0.413,-0.453" Source="/Maple logo.png"/>
-        <Button x:Name="btn_ChatForm" Content="Chat" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Background="#00030303" Foreground="Black" FontWeight="Bold" FontSize="14" Height="27" Width="45" FontFamily="Cooper Black" BorderBrush="#00707070" Click="btn_ChatForm_Click"/>
-        <Button x:Name="btn_MuiscForm" Content="Music" HorizontalAlignment="Left" Margin="59,64,0,0" VerticalAlignment="Top" Background="#00030303" Foreground="Black" FontWeight="Bold" FontSize="14" Height="27" Width="45" FontFamily="Cooper Black" BorderBrush="#00707070" Click="btn_MusicForm_Click"/>
-        <Button x:Name="btn_LinksForm" Content="Links" HorizontalAlignment="Left" Margin="188,64,0,0" VerticalAlignment="Top" Background="#00030303" Foreground="Black" FontWeight="Bold" FontSize="14" Height="27" Width="45" FontFamily="Cooper Black" BorderBrush="#00707070"/>
-        <Label Content="Need Help? Join the" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,58,11" RenderTransformOrigin="0.473,0.589"/>
-        <Button x:Name="btn_LinkToDiscord" Content="Discord." Margin="0,0,31,11" RenderTransformOrigin="0.28,-0.222" Background="#00050505" Foreground="#FF0613D6" BorderBrush="#00707070" Click="btn_LinkToDiscord_Click" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="31"/>
+        <Image HorizontalAlignment="Center" Height="60" Margin="0,11,0,0" VerticalAlignment="Top" Width="155" RenderTransformOrigin="0.413,-0.453" Source="/Maple logo.png"/>
+        <Button x:Name="btn_ChatForm" Content="Chat" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top" Background="#00030303" Foreground="Black" FontWeight="Bold" FontSize="14" Height="27" Width="45" FontFamily="Cooper Black" BorderBrush="#00707070" Click="btn_ChatForm_Click"/>
+        <Button x:Name="btn_MuiscForm" Content="Music" HorizontalAlignment="Left" Margin="54,70,0,0" VerticalAlignment="Top" Background="#00030303" Foreground="Black" FontWeight="Bold" FontSize="14" Height="27" Width="45" FontFamily="Cooper Black" BorderBrush="#00707070" Click="btn_MusicForm_Click"/>
+        <Button x:Name="btn_LinksForm" Content="Links" HorizontalAlignment="Left" Margin="188,70,0,0" VerticalAlignment="Top" Background="#00030303" Foreground="Black" FontWeight="Bold" FontSize="14" Height="27" Width="45" FontFamily="Cooper Black" BorderBrush="#00707070" Click="btn_LinksForm_Click"/>
+        <Label Content="Need Help? Join the" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,58,12" RenderTransformOrigin="0.473,0.589"/>
+        <Button x:Name="btn_LinkToDiscord" Content="Discord." Margin="0,0,31,12" RenderTransformOrigin="0.28,-0.222" Background="#00050505" Foreground="#FF0613D6" BorderBrush="#00707070" Click="btn_LinkToDiscord_Click" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="31"/>
 
     </Grid>
 </Window>

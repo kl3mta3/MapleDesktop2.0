@@ -1,0 +1,27 @@
+﻿<Window x:Class="MapleDesktop2._0.WebWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:local="clr-namespace:MapleDesktop2._0"
+        mc:Ignorable="d"
+        Title="WebWindow" Height="600" Width="960" Closing="Window_Closing">
+    <Window.Background>
+        <ImageBrush ImageSource="/Artboard 1@1075.png"/>
+    </Window.Background>
+    <Grid Margin="26,10,25,19">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="198*"/>
+        </Grid.RowDefinitions>
+        <cefSharp:ChromiumWebBrowser x:Name="webBrowser" Grid.Row="1" Background="White" Margin="-25,10,-23,-15" />
+        <Button Content="Back" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.941,-0.138" Background="#FF020202" Foreground="White" BorderBrush="#FFFFFDFD" Click="Button_Click" Grid.RowSpan="2"/>
+        <Button Content="Forward" Margin="35,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.941,-0.138" Background="#FF020202" Foreground="White" BorderBrush="#FFFFFDFD" Click="Button_Click_1" HorizontalAlignment="Left" Width="47" Grid.RowSpan="2"/>
+        <TextBox x:Name="txb_URLBox" Height="18" Margin="87,1,202,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Button Content="Go" Margin="0,0,173,0" VerticalAlignment="Top" RenderTransformOrigin="0.941,-0.138" Background="#FF020202" Foreground="White" BorderBrush="#FFFFFDFD" Click="Button_Click_2" HorizontalAlignment="Right" Width="19" Grid.RowSpan="2"/>
+        <Button x:Name="btn_PlayNextTrack" Content="Next Track" HorizontalAlignment="Right" Margin="0,1,-13,0" VerticalAlignment="Top" Grid.RowSpan="2" Background="#7F000000" Foreground="White" BorderBrush="White" Width="72" Click="btn_PlayNextTrack_Click" IsEnabled="False" Visibility="Hidden"/>
+        <Button x:Name="btn_PlaylastTrack" Content="Last Track" HorizontalAlignment="Right" Margin="0,0,64,0" VerticalAlignment="Top" Grid.RowSpan="2" Background="#19000000" Foreground="White" BorderBrush="White" Width="72" Click="btn_PlaylastTrack_Click" IsEnabled="False" Visibility="Hidden"/>
+
+    </Grid>
+</Window>

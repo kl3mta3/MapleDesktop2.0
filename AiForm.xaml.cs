@@ -1,18 +1,10 @@
 ﻿using OpenAI_API;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MapleDesktop2._0
 {
@@ -34,11 +26,11 @@ namespace MapleDesktop2._0
             rtb_MapleInput.Document.Blocks.Clear();
 
 
-            if(Properties.Settings.Default.OpenAiToken != "Void")
+            if (Properties.Settings.Default.OpenAiToken != "Void")
             {
                 SetApiSaved();
             }
-            
+
 
 
         }
@@ -54,8 +46,8 @@ namespace MapleDesktop2._0
 
         public async Task StreamGPT()
         {
-           // WriteToMapleConsole("Using API Key"+ Properties.Settings.Default.OpenAiToken);
-            OpenAIAPI api = new OpenAIAPI(Properties.Settings.Default.OpenAiToken); 
+            // WriteToMapleConsole("Using API Key"+ Properties.Settings.Default.OpenAiToken);
+            OpenAIAPI api = new OpenAIAPI(Properties.Settings.Default.OpenAiToken);
 
             try
             {
@@ -101,28 +93,28 @@ namespace MapleDesktop2._0
 
 
 
-                if (!token.StartsWith("sk"))
-                {
-                    WriteToMapleConsole("Token must start with sk");
-                    return;
-                }
+            if (!token.StartsWith("sk"))
+            {
+                WriteToMapleConsole("Token must start with sk");
+                return;
+            }
 
-                if (token.Length > 5)
-                {
-                    Properties.Settings.Default.OpenAiToken = token;
-                    Properties.Settings.Default.Save();
-                    //Config.AiConfig.OpenAiApiToken = token;
-                    txb_ApiInput.Text = "";
-                    SetApiSaved();
-                    WriteToMapleConsole($"{Properties.Settings.Default.OpenAiToken} Registered");
-                    WriteToMapleConsole($"{Environment.NewLine}Token Saved");
-                }
-                else
-                {
-                    WriteToMapleConsole("Token too short");
+            if (token.Length > 5)
+            {
+                Properties.Settings.Default.OpenAiToken = token;
+                Properties.Settings.Default.Save();
+                //Config.AiConfig.OpenAiApiToken = token;
+                txb_ApiInput.Text = "";
+                SetApiSaved();
+                WriteToMapleConsole($"{Properties.Settings.Default.OpenAiToken} Registered");
+                WriteToMapleConsole($"{Environment.NewLine}Token Saved");
+            }
+            else
+            {
+                WriteToMapleConsole("Token too short");
 
-                }
-            
+            }
+
         }
         private void SetApiSaved()
         {
@@ -139,7 +131,7 @@ namespace MapleDesktop2._0
 
         internal void PostQuestionToMapleConsole(string message)
         {
-            if(rtb_MapleConsole.Document.Blocks.Count>=1)
+            if (rtb_MapleConsole.Document.Blocks.Count >= 1)
             {
                 rtb_MapleConsole.AppendText(Environment.NewLine);
 
@@ -219,9 +211,9 @@ namespace MapleDesktop2._0
 
 
             }
-            catch 
+            catch
             {
-                
+
             }
         }
     }

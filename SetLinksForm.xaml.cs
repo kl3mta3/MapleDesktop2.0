@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Deployment.Internal;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace MapleDesktop2._0
 {
@@ -21,7 +8,7 @@ namespace MapleDesktop2._0
     public partial class SetLinksForm : Window
     {
         internal static int linkid = 0;
-  
+
 
 
         public SetLinksForm()
@@ -119,7 +106,7 @@ namespace MapleDesktop2._0
             }
 
 
-            
+
 
 
 

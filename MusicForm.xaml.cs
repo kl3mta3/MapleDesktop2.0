@@ -1,15 +1,10 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
-using NAudio.Wave;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Threading;
 using System.Windows.Threading;
-using System.Drawing;
 using static MapleDesktop2._0.MusicSystem;
-using System.Windows.Controls;
-using System.ComponentModel;
 
 namespace MapleDesktop2._0
 {
@@ -22,13 +17,13 @@ namespace MapleDesktop2._0
         internal static DebugConsoleForm currentDebugConsole = new DebugConsoleForm();
         internal static PlaylistConsoleForm currentPlaylistConsole = new PlaylistConsoleForm();
         internal static WebWindow currentWebWindow = new WebWindow();
-       
+
         //internal static CefSharp.Wpf.ChromiumWebBrowser webBrowser = currentWebWindow.webBrowser;
         public MusicForm()
         {
             InitializeComponent();
 
-            
+
         }
 
 
@@ -89,7 +84,7 @@ namespace MapleDesktop2._0
             timer1.Tick += OnTimerTick;
             timer1.Interval = new TimeSpan(0, 0, 1);
             timer1.Start();
-             // timer for updating current time label
+            // timer for updating current time label
 
             WriteToDebugConsole("Tick Timer on");
         }
@@ -130,7 +125,7 @@ namespace MapleDesktop2._0
 
 
 
-            if (MainWindow.music.playlistCount > 1 && !MainWindow.music.userPressedStop && !MainWindow.music.userPressedLast&& !MainWindow.music.userpressedGo)
+            if (MainWindow.music.playlistCount > 1 && !MainWindow.music.userPressedStop && !MainWindow.music.userPressedLast && !MainWindow.music.userpressedGo)
             {
                 currentDebugConsole.WriteToDebugConsole($"Next Track Triggered After Stop");
                 MainWindow.music.PlayNextTrack(sender, e);
@@ -191,7 +186,7 @@ namespace MapleDesktop2._0
 
             lbl_PlayingArtist.Content = "";
 
-           //lbl_PlayingLink.Content = "";
+            //lbl_PlayingLink.Content = "";
             txb_PlayingLink.Text = "";
             lbl_PlayingStatus.Content = "";
             lbl_PlayTrackPlaylistID.Content = "";
@@ -248,7 +243,7 @@ namespace MapleDesktop2._0
 
         }
 
- 
+
 
         public void toggleWebWindowConsole()
         {
@@ -314,7 +309,7 @@ namespace MapleDesktop2._0
         }
         internal void PlayVideoInWindow(string url)
         {
-          
+
             MainWindow.currentMusicForm.WriteToDebugConsole(" MainWindow.webWindowOpen = true;");
             if (!MainWindow.webWindowOpen)
             {
@@ -325,10 +320,10 @@ namespace MapleDesktop2._0
                 }
 
             }
-                currentWebWindow.Show();
-                currentWebWindow.PlayVideo(url);
+            currentWebWindow.Show();
+            currentWebWindow.PlayVideo(url);
 
-          
+
         }
         internal void PostPlaylistCount()
         {
@@ -341,7 +336,7 @@ namespace MapleDesktop2._0
         private void ckb_SaveVideo_CheckedChanged(object sender, EventArgs e)
         {
 
-            if (ckb_SaveVideo.IsChecked==false)
+            if (ckb_SaveVideo.IsChecked == false)
             {
                 MainWindow.saveVideo = false;
                 //WriteToMapleConsole("Saving Video Disabled");
@@ -369,11 +364,11 @@ namespace MapleDesktop2._0
 
         public void DisplayCurrentSongInfo(string _title, string _artist, string _url, string _id)
         {
-           //lbl_PlayingName.Content = _title;
-            txb_PlayingName.Text= _title;
+            //lbl_PlayingName.Content = _title;
+            txb_PlayingName.Text = _title;
             //lbl_PlayingArtist.Content = _artist;
-            txb_PlayingArtist.Text= _artist;
-           // lbl_PlayingLink.Content = _url;
+            txb_PlayingArtist.Text = _artist;
+            // lbl_PlayingLink.Content = _url;
             txb_PlayingLink.Text = _url;
             lbl_PlayTrackPlaylistID.Content = _id;
         }
@@ -382,7 +377,7 @@ namespace MapleDesktop2._0
         {
             if (_value <= tbr_TrackProgressBar.Maximum)
             {
-               int roundedValue = (int)Math.Round((double)_value);
+                int roundedValue = (int)Math.Round((double)_value);
                 //currentDebugConsole.WriteToDebugConsole("TrackProgressBar.Value" + roundedValue.ToString());
                 tbr_TrackProgressBar.Value = roundedValue;
             }
@@ -497,13 +492,13 @@ namespace MapleDesktop2._0
 
         private void ckb_SaveVideo_Checked(object sender, RoutedEventArgs e)
         {
-            
 
-            
-           
-                MainWindow.saveVideo = true;
-                currentDebugConsole.WriteToDebugConsole("Saving Video Enabled");
-         
+
+
+
+            MainWindow.saveVideo = true;
+            currentDebugConsole.WriteToDebugConsole("Saving Video Enabled");
+
 
 
         }
@@ -518,7 +513,7 @@ namespace MapleDesktop2._0
 
 
 
-                   MainWindow.music.PlaySearchRequest(searchrequest, sender, e);
+                    MainWindow.music.PlaySearchRequest(searchrequest, sender, e);
 
                     txb_SongInput.Text = "";
                 }
@@ -529,11 +524,11 @@ namespace MapleDesktop2._0
         private void rbn_PlayAudio_Unchecked(object sender, RoutedEventArgs e)
         {
 
-               MainWindow.playAudio = false;
-                MainWindow.playVideo = true;
+            MainWindow.playAudio = false;
+            MainWindow.playVideo = true;
 
             currentDebugConsole.WriteToDebugConsole("MainWindow.playAudio = false;\r\n MainWindow.playVideo = true");
-            
+
         }
 
         private void btn_Play_Click(object sender, RoutedEventArgs e)
@@ -542,7 +537,7 @@ namespace MapleDesktop2._0
             {
                 string searchrequest = txb_SongInput.Text;
 
-                 WriteToDebugConsole($" starting search with query {searchrequest}");
+                WriteToDebugConsole($" starting search with query {searchrequest}");
 
                 MainWindow.music.HandleRequest(searchrequest, sender, e);
                 txb_SongInput.Text = "";
@@ -553,17 +548,17 @@ namespace MapleDesktop2._0
         {
 
             MainWindow.saveMusic = true;
-                currentDebugConsole.WriteToDebugConsole("Saving Music true");
-            
-           
+            currentDebugConsole.WriteToDebugConsole("Saving Music true");
+
+
         }
 
         private void ckb_SaveMusic_Unchecked(object sender, RoutedEventArgs e)
         {
-           
-                MainWindow.saveMusic = false;
-                currentDebugConsole.WriteToDebugConsole("Saving Music false");
-            
+
+            MainWindow.saveMusic = false;
+            currentDebugConsole.WriteToDebugConsole("Saving Music false");
+
         }
 
         private void ckb_SaveVideo_Unchecked(object sender, RoutedEventArgs e)
@@ -582,7 +577,7 @@ namespace MapleDesktop2._0
             }
             catch (Exception ex)
             {
-               currentDebugConsole.WriteToDebugConsole(ex.Message);
+                currentDebugConsole.WriteToDebugConsole(ex.Message);
             }
         }
 
@@ -655,7 +650,7 @@ namespace MapleDesktop2._0
                     MainWindow.wavePlayer.Stop();
                     WriteToDebugConsole("Skip Audio Pressed");
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -725,16 +720,16 @@ namespace MapleDesktop2._0
 
         private void btn_StopAll_Click(object sender, RoutedEventArgs e)
         {
-            
 
-                if (MainWindow.music.playingTrack)
-                {
-                    MainWindow.music.userPressedStop = true;
-                    MainWindow.wavePlayer.Stop();
-                    MainWindow.music.ClearAudioPlaylist();
-                }
 
-            
+            if (MainWindow.music.playingTrack)
+            {
+                MainWindow.music.userPressedStop = true;
+                MainWindow.wavePlayer.Stop();
+                MainWindow.music.ClearAudioPlaylist();
+            }
+
+
         }
 
         private void OnVolumeSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -803,10 +798,10 @@ namespace MapleDesktop2._0
             currentDebugConsole.WriteToDebugConsole(timeStamp);
             string[] strings = timeStamp.Split(':');
             string hours = strings[0];
-            currentDebugConsole.WriteToDebugConsole("Hours "+hours);
+            currentDebugConsole.WriteToDebugConsole("Hours " + hours);
             string minutes = strings[1];
             currentDebugConsole.WriteToDebugConsole("Minutes " + minutes);
-            string rawSeconds= strings[2];
+            string rawSeconds = strings[2];
             currentDebugConsole.WriteToDebugConsole("Raw Seconds " + rawSeconds);
 
             string[] secondsRounded = rawSeconds.Split('.');
@@ -818,7 +813,7 @@ namespace MapleDesktop2._0
 
             string stampedUrl = $"{link}&t={minutes}m{seconds}s&autoplay=1";
             currentDebugConsole.WriteToDebugConsole("StampedURl " + stampedUrl);
-            if(!MainWindow.music.trackPaused)
+            if (!MainWindow.music.trackPaused)
             {
                 PausePlayer();
 
@@ -845,7 +840,7 @@ namespace MapleDesktop2._0
                 MainWindow.wavePlayer.Stop();
                 MainWindow.music.ClearAudioPlaylist();
             }
-           
+
         }
 
         private void btn_Playlist_Click(object sender, RoutedEventArgs e)
@@ -862,9 +857,9 @@ namespace MapleDesktop2._0
 
         private void btn_WebWindowToggle_Click(object sender, RoutedEventArgs e)
         {
-            
-                toggleWebWindowConsole();
-            
+
+            toggleWebWindowConsole();
+
         }
     }
 }

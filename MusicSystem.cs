@@ -1,16 +1,10 @@
-﻿using Google.Apis.Services;
-using Google.Apis.YouTube.v3;
-using Google.Apis.YouTube.v3.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using YoutubeExplode.Search;
 using YoutubeExplode.Videos.Streams;
-using static MapleDesktop2._0.MusicSystem;
 
 namespace MapleDesktop2._0
 {
@@ -142,7 +136,7 @@ namespace MapleDesktop2._0
                     }
                     if (!playingVideo)
                     {
-                       
+
                         MainWindow.currentMusicForm.WriteToDebugConsole($"Url sent for Playback {currentTrack.url}");
                         MainWindow.currentMusicForm.PlayVideoInWindow(currentTrack.url);
                     }
@@ -226,7 +220,6 @@ namespace MapleDesktop2._0
             MainWindow.currentMusicForm.DisplayCurrentSongInfo(currentTrack.title, currentTrack.author, currentTrack.url, currentTrack.playlistId.ToString());
 
             string songLength = currentTrack.length;
-            int tracklength = 0;
             string currentprogress = $"0:00/{currentTrack.length}";
 
             //helper.SetProgressBarCurrentTrackLength(songLength);
@@ -337,9 +330,6 @@ namespace MapleDesktop2._0
             string fileName = "";
             string musicFolder = "";
             string allegedPath = "";
-            string allegedVideoPath = "";
-            string filepath = "";
-            string videoFilePath = "";
             // string path = "";
             bool keepfile = false;
             // MapleHome.debugConsole.WriteToDebugConsole($"Extracting MetaData");
@@ -418,8 +408,6 @@ namespace MapleDesktop2._0
             string musicFolder = "";
             string allegedPath = "";
             string allegedVideoPath = "";
-            string filepath = "";
-            string videoFilePath = "";
 
             bool keepfile = false;
             MainWindow.currentMusicForm.WriteToDebugConsole($"Extracting MetaData");
@@ -449,7 +437,7 @@ namespace MapleDesktop2._0
                     MainWindow.currentMusicForm.WriteToDebugConsole($"Downloading Audio File");
                     try
                     {
-                    await youtube.Videos.Streams.DownloadAsync(streamInfo, allegedPath);
+                        await youtube.Videos.Streams.DownloadAsync(streamInfo, allegedPath);
 
                     }
                     catch (Exception ex)
@@ -563,37 +551,37 @@ namespace MapleDesktop2._0
                 }
             }
         }
-            //if (MainWindow.playVideo)
-            //{
-            //    Video video = new Video();
-            //    video.author = videoAuthor;
-            //    video.title = videoTitle;
-            //    video.length = videoDuration;
-            //    video.url = videoDataUrl;
-            //    if (allegedVideoPath != null)
-            //    {
-            //        video.path = allegedVideoPath;
+        //if (MainWindow.playVideo)
+        //{
+        //    Video video = new Video();
+        //    video.author = videoAuthor;
+        //    video.title = videoTitle;
+        //    video.length = videoDuration;
+        //    video.url = videoDataUrl;
+        //    if (allegedVideoPath != null)
+        //    {
+        //        video.path = allegedVideoPath;
 
-            //    }
+        //    }
 
-            //    int playlistid = videoPlaylistCount + 1;
-            //    videoPlaylistCount++;
-            //    video.playlistId = playlistid;
+        //    int playlistid = videoPlaylistCount + 1;
+        //    videoPlaylistCount++;
+        //    video.playlistId = playlistid;
 
-            //    videoPlaylist.Add(video);
+        //    videoPlaylist.Add(video);
 
-            //    //MainWindow.music.DisplayVideoPlaylist();
-            //    MainWindow.currentMusicForm.WriteToDebugConsole($" {video.title} added to Video Playlist ");
-            //    MainWindow.currentMusicForm.WriteToDebugConsole($" Video playlist count {playlist.Count}");
+        //    //MainWindow.music.DisplayVideoPlaylist();
+        //    MainWindow.currentMusicForm.WriteToDebugConsole($" {video.title} added to Video Playlist ");
+        //    MainWindow.currentMusicForm.WriteToDebugConsole($" Video playlist count {playlist.Count}");
 
-            //} ///for video Playback  
-    
+        //} ///for video Playback  
+
 
 
         internal void DisplayAudioPlaylist()
         {
 
-                MainWindow.currentMusicForm.ClearPlaylistConsole();
+            MainWindow.currentMusicForm.ClearPlaylistConsole();
 
             List<Song> orderedPlaylist = playlist.OrderBy(i => i.playlistId).ToList();
 
@@ -601,7 +589,7 @@ namespace MapleDesktop2._0
             {
 
                 MainWindow.currentMusicForm.WriteToPlaylistConsole($"{song.playlistId}. {song.title}");
-                
+
 
             }
 
@@ -650,18 +638,18 @@ namespace MapleDesktop2._0
 
 
 
-        internal void PlayPlaylistTrack( object sender, EventArgs e)
+        internal void PlayPlaylistTrack(object sender, EventArgs e)
         {
             MainWindow.currentMusicForm.WriteToDebugConsole($"PlayList Track Process started");
             var trackNumber = selectedPlaylistTrack;
             MainWindow.currentMusicForm.WriteToDebugConsole($"PlayList Count {playlist.Count}");
-            if (playlist.Count <=0 )
+            if (playlist.Count <= 0)
             {
                 MainWindow.currentMusicForm.WriteToDebugConsole($"No songs in playlist");
                 return;
             }
             if (trackNumber <= playlist.Count)
-                {
+            {
                 MainWindow.currentMusicForm.WriteToDebugConsole($"Searching for Track by ID  {trackNumber}");
                 Song track = SearchForPlaylistTrack(trackNumber);
 
@@ -679,7 +667,7 @@ namespace MapleDesktop2._0
         {
             int nextTrackid = trackNumber;
             Song song = new Song();
-  
+
             //nextTrackid = trackNumber;
             foreach (Song track in playlist)
             {
@@ -820,13 +808,13 @@ namespace MapleDesktop2._0
 
 
             MainWindow.debugConsole.WriteToDebugConsole($"Searching for '{request}'");
-            
+
 
             if (searchResults.Count > 0)
             {
                 searchResults.Clear();
             }
-      
+
 
             await foreach (var video in MainWindow.youtube.Search.GetVideosAsync(request))
             {
@@ -835,7 +823,7 @@ namespace MapleDesktop2._0
                 {
 
                     searchResults.Add(video);
-                   MainWindow.debugConsole.WriteToDebugConsole($"{video.Title} added to searchresults");
+                    MainWindow.debugConsole.WriteToDebugConsole($"{video.Title} added to searchresults");
                     break;
 
                 }

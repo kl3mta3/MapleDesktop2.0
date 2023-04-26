@@ -1,13 +1,5 @@
 ﻿using CefSharp;
-using CefSharp.Handler;
 using CefSharp.Wpf;
-using MapleDesktop2._0.Properties;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MapleDeaktop2._0
@@ -16,7 +8,7 @@ namespace MapleDeaktop2._0
     /// Interaction logic for App.xaml
     /// </summary>
     /// 
-    
+
     public partial class App : Application
     {
 
@@ -28,7 +20,7 @@ namespace MapleDeaktop2._0
             Cef.Initialize(settings, true, browserProcessHandler: null);
 
             base.OnStartup(e);
-            
+
         }
 
     }

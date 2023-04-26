@@ -1,18 +1,5 @@
-﻿using AngleSharp.Dom;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MapleDesktop2._0
 {
@@ -34,7 +21,7 @@ namespace MapleDesktop2._0
             ClearPlaylistConsole();
             MainWindow.music.ClearAudioPlaylist();
         }
-        
+
 
         public void WriteToPlaylistConsole(string message)
         {
@@ -64,14 +51,14 @@ namespace MapleDesktop2._0
 
 
 
-            if (txb_playlistTrackSelect.Text!="")
+            if (txb_playlistTrackSelect.Text != "")
             {
                 MainWindow.music.selectedPlaylistTrack = Int32.Parse(txb_playlistTrackSelect.Text);
                 MainWindow.currentMusicForm.WriteToDebugConsole("txb_playlist.text" + txb_playlistTrackSelect.Text);
-                MainWindow.currentMusicForm.WriteToDebugConsole("selectedPlaylistTrack"+MainWindow.music.selectedPlaylistTrack.ToString());
+                MainWindow.currentMusicForm.WriteToDebugConsole("selectedPlaylistTrack" + MainWindow.music.selectedPlaylistTrack.ToString());
                 MainWindow.music.userpressedGo = true;
                 MainWindow.wavePlayer.Stop();
-               // MainWindow.music.PlayPlaylistTrack(sender, e);
+                // MainWindow.music.PlayPlaylistTrack(sender, e);
             }
 
         }

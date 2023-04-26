@@ -1,24 +1,11 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using NAudio.Wave;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 //using System.Windows.Shapes;
 using YoutubeExplode;
-using System.IO;
-using CefSharp.Wpf;
-using CefSharp;
 
 namespace MapleDesktop2._0
 {
@@ -29,14 +16,14 @@ namespace MapleDesktop2._0
     {
 
         internal static string openAiToken = Properties.Settings.Default.OpenAiToken;
-       // internal static string youtubeApiKey = Properties.Settings.Default.YouTubeApiKey;
+        // internal static string youtubeApiKey = Properties.Settings.Default.YouTubeApiKey;
 
         internal static bool inInput = false;
         internal static bool saveMusic = false;
         internal static bool saveVideo = false;
         internal static bool playAudio = true;
         internal static bool playVideo = false;
-      
+
         internal static string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         internal static string musicSavePath = Path.Combine(systemPath, @"Maple\Saved Music");
         internal static string videoSavePath = Path.Combine(systemPath, @"Maple\Saved Videos");
@@ -63,7 +50,7 @@ namespace MapleDesktop2._0
         internal static bool currentSetAppsFormOpen = false;
         internal static MusicForm currentMusicForm = new MusicForm();
         internal static AiForm currentAiForm = new AiForm();
-       internal static LinksForm currentLinksForm = new LinksForm();
+        internal static LinksForm currentLinksForm = new LinksForm();
         internal static bool debugConsoleOpen = false;
 
         public MainWindow()
@@ -80,20 +67,20 @@ namespace MapleDesktop2._0
                 Directory.CreateDirectory(videoSavePath);
 
             }
-            
-           
-           
+
+
+
         }
 
 
-            private void btn_ChatForm_Click(object sender, RoutedEventArgs e)
+        private void btn_ChatForm_Click(object sender, RoutedEventArgs e)
         {
-            aiFormOpen=!aiFormOpen;
+            aiFormOpen = !aiFormOpen;
 
             if (aiFormOpen)
             {
                 AiForm current = new AiForm();
-                currentAiForm=current;
+                currentAiForm = current;
                 currentAiForm.Show();
             }
             else
@@ -111,7 +98,7 @@ namespace MapleDesktop2._0
             if (musicFormOpen)
             {
                 MusicForm current = new MusicForm();
-                currentMusicForm=current;
+                currentMusicForm = current;
                 currentMusicForm.Show();
             }
             else
@@ -125,7 +112,7 @@ namespace MapleDesktop2._0
 
         private void btn_LinkToDiscord_Click(object sender, RoutedEventArgs e)
         {
-           
+
 
             string link = " https://discord.com/invite/PPaRjqnG";
             try
@@ -135,13 +122,13 @@ namespace MapleDesktop2._0
                 proc.StartInfo.FileName = link;
                 proc.Start();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+
             }
         }
 
-        
+
 
 
 

@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 using Label = System.Windows.Controls.Label;
 
@@ -24,7 +14,7 @@ namespace MapleDesktop2._0
 
     {
 
-        internal static Label  quickLinkNameToChange = new Label();
+        internal static Label quickLinkNameToChange = new Label();
         internal static Button quickLinkButtonToChange = new Button();
         internal static int currentquickLinkId = 0;
 
@@ -35,7 +25,7 @@ namespace MapleDesktop2._0
 
         internal static SetAppsForm currentSetAppsForm = new SetAppsForm();
         internal static SetLinksForm currentSetLinksForm = new SetLinksForm();
-        
+
 
         public LinksForm()
         {
@@ -197,7 +187,7 @@ namespace MapleDesktop2._0
 
         }
 
-            private void btn_Google_Click(object sender, RoutedEventArgs e)
+        private void btn_Google_Click(object sender, RoutedEventArgs e)
         {
             string link = "https://www.Google.com";
             try
@@ -208,9 +198,9 @@ namespace MapleDesktop2._0
                 proc.Start();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+
             }
         }
 
@@ -225,7 +215,7 @@ namespace MapleDesktop2._0
                 proc.Start();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -242,7 +232,7 @@ namespace MapleDesktop2._0
                 proc.Start();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -252,17 +242,17 @@ namespace MapleDesktop2._0
         internal void OpenSetLinksWindow(int linkid)
         {
 
-            if(MainWindow.currentSetLinksFormOpen)
+            if (MainWindow.currentSetLinksFormOpen)
             {
                 return;
 
             }
-           
+
             SetLinksForm current = new SetLinksForm();
-            currentSetLinksForm= current;
+            currentSetLinksForm = current;
             currentSetLinksForm.SetLinkId(linkid);
             currentSetLinksForm.Show();
-            MainWindow.currentSetLinksFormOpen= true;
+            MainWindow.currentSetLinksFormOpen = true;
         }
 
         internal void OpenSetAppsWindow(int appid)
@@ -315,9 +305,9 @@ namespace MapleDesktop2._0
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+
             }
         }
 
@@ -333,9 +323,9 @@ namespace MapleDesktop2._0
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+
             }
         }
 
@@ -351,7 +341,7 @@ namespace MapleDesktop2._0
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -410,9 +400,9 @@ namespace MapleDesktop2._0
                     proc.Start();
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                  
+
                 }
             }
         }
@@ -431,9 +421,9 @@ namespace MapleDesktop2._0
                     proc.Start();
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    
+
                 }
             }
         }
@@ -452,9 +442,9 @@ namespace MapleDesktop2._0
                     proc.Start();
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                   
+
                 }
             }
         }
@@ -473,9 +463,9 @@ namespace MapleDesktop2._0
                     proc.Start();
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    
+
                 }
             }
         }
@@ -494,16 +484,16 @@ namespace MapleDesktop2._0
                     proc.Start();
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                   
+
                 }
             }
         }
 
         private void btn_QuickLink6_Click(object sender, RoutedEventArgs e)
         {
-           if (Properties.Settings.Default.QuickLink6 != "Enter Url...")
+            if (Properties.Settings.Default.QuickLink6 != "Enter Url...")
             {
                 string link = Properties.Settings.Default.QuickLink6;
 
@@ -515,9 +505,9 @@ namespace MapleDesktop2._0
                     proc.Start();
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    
+
                 }
             }
         }
@@ -551,9 +541,9 @@ namespace MapleDesktop2._0
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    
+
                 }
             }
         }
@@ -572,7 +562,7 @@ namespace MapleDesktop2._0
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // WriteToMapleConsole(ex.Message);
                 }
@@ -593,7 +583,7 @@ namespace MapleDesktop2._0
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // WriteToMapleConsole(ex.Message);
                 }

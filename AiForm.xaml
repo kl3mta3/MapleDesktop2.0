@@ -30,7 +30,7 @@
 
         <Button x:Name="btn_InputEnter" Content="Enter" RenderTransformOrigin="0.556,0.585" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF0484F6" Click="btn_InputEnter_Click" Margin="0,335,26,0" HorizontalAlignment="Right" Width="66" Height="39" VerticalAlignment="Top"/>
 
-        <Button Content="OpenAi.com" Margin="0,418,50,0" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF7A08F4" HorizontalAlignment="Right" Width="72" Height="20" VerticalAlignment="Top"/>
+        <Button Content="OpenAi.com" Margin="0,418,50,0" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF7A08F4" HorizontalAlignment="Right" Width="72" Height="20" VerticalAlignment="Top" Click="Button_Click"/>
         <Button x:Name="btn_SaveAPI" Content="Save" Margin="0,417,198,0" Background="#FF060606" Foreground="#FFFDFDFD" BorderBrush="#FF7A08F4" Click="btn_SaveAPI_Click" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="29"/>
         <CheckBox x:Name="ckb_SavedApi" Content="" Margin="0,412,146,0" BorderBrush="#FF7A08F4" Focusable="False" IsHitTestVisible="False" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" Width="20"/>
         <Label Content="Saved" Margin="0,418,137,0" FontWeight="Bold" RenderTransformOrigin="0.52,1.235" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="43"/>

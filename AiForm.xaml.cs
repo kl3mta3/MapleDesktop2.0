@@ -1,6 +1,7 @@
 ﻿using OpenAI_API;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,8 +54,8 @@ namespace MapleDesktop2._0
 
         public async Task StreamGPT()
         {
-            //WriteToMapleConsole("Using API Key"+MainWindow.openAiToken);
-            OpenAIAPI api = new OpenAIAPI(MainWindow.openAiToken); // shorthand
+           // WriteToMapleConsole("Using API Key"+ Properties.Settings.Default.OpenAiToken);
+            OpenAIAPI api = new OpenAIAPI(Properties.Settings.Default.OpenAiToken); 
 
             try
             {
@@ -96,12 +97,16 @@ namespace MapleDesktop2._0
         private void btn_SaveAPI_Click(object sender, RoutedEventArgs e)
         {
             string token = txb_ApiInput.Text;
-            WriteToMapleConsole(txb_ApiInput.Text);
+            //WriteToMapleConsole(txb_ApiInput.Text);
 
 
 
-            if (token.StartsWith("sk"))
-            {
+                if (!token.StartsWith("sk"))
+                {
+                    WriteToMapleConsole("Token must start with sk");
+                    return;
+                }
+
                 if (token.Length > 5)
                 {
                     Properties.Settings.Default.OpenAiToken = token;
@@ -109,19 +114,15 @@ namespace MapleDesktop2._0
                     //Config.AiConfig.OpenAiApiToken = token;
                     txb_ApiInput.Text = "";
                     SetApiSaved();
-                    WriteToMapleConsole("Token Saved");
+                    WriteToMapleConsole($"{Properties.Settings.Default.OpenAiToken} Registered");
+                    WriteToMapleConsole($"{Environment.NewLine}Token Saved");
                 }
                 else
                 {
                     WriteToMapleConsole("Token too short");
 
                 }
-            }
-            else
-            {
-
-                WriteToMapleConsole("Token must start with sk");
-            }
+            
         }
         private void SetApiSaved()
         {
@@ -136,11 +137,22 @@ namespace MapleDesktop2._0
             rtb_MapleConsole.ScrollToEnd();
         }
 
+        internal void PostQuestionToMapleConsole(string message)
+        {
+            if(rtb_MapleConsole.Document.Blocks.Count>=1)
+            {
+                rtb_MapleConsole.AppendText(Environment.NewLine);
+
+            }
+            rtb_MapleConsole.AppendText(message);
+            rtb_MapleConsole.ScrollToEnd();
+        }
+
         internal void btn_InputEnter_Click(object sender, RoutedEventArgs e)
         {
             question = new TextRange(rtb_MapleInput.Document.ContentStart, rtb_MapleInput.Document.ContentEnd).Text;
 
-            WriteToMapleConsole($"Me: {question}");
+            PostQuestionToMapleConsole($"User: {question}");
             AskQuestion(question);
 
             rtb_MapleInput.Document.Blocks.Clear();
@@ -160,7 +172,7 @@ namespace MapleDesktop2._0
 
         internal void InsertMapleTag()
         {
-            rtb_MapleConsole.Document.Blocks.Add(new Paragraph(new Run(Environment.NewLine + "Maple: ")));
+            rtb_MapleConsole.Document.Blocks.Add(new Paragraph(new Run(Environment.NewLine + "MapleAI: ")));
         }
 
         internal void ClearMapleConsole()
@@ -186,12 +198,31 @@ namespace MapleDesktop2._0
 
                 rtb_MapleInput.Document.Blocks.Clear();
                 rtb_MapleInput.Focus();
+                e.Handled = true;
             }
         }
 
         private void ChatForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MainWindow.aiFormOpen = false;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string link = "https://platform.openai.com/";
+            try
+            {
+                Process proc = new Process();
+                proc.StartInfo.UseShellExecute = true;
+                proc.StartInfo.FileName = link;
+                proc.Start();
+
+
+            }
+            catch (Exception ex)
+            {
+                // WriteToMapleConsole(ex.Message);
+            }
         }
     }
 }

@@ -140,6 +140,7 @@ namespace MapleDesktop2._0
             {
                 LinksForm current = new LinksForm();
                 currentLinksForm = current;
+                currentLinksForm.ConfigureSystem();
                 currentLinksForm.Show();
             }
             else

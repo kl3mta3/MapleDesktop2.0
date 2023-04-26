@@ -37,8 +37,7 @@ namespace MapleDesktop2._0
 
         internal void ConfigureSystem()
         {
-            if (systemConfigRan == false)
-            {
+            
 
                 if (Properties.Settings.Default.QuickLink1Name != "Void")
                 {
@@ -51,7 +50,7 @@ namespace MapleDesktop2._0
                 {
                     lbl_QuickLink1Name.Content = "";
                     //lbl_QuickLink1.Content = "";
-                    btn_QuickLink1.Content = "Add Url";
+                    btn_QuickLink1.Content = "Add --->";
 
                 }
                 if (Properties.Settings.Default.QuickLink2Name != "Void")
@@ -65,7 +64,7 @@ namespace MapleDesktop2._0
                 {
                     lbl_QuickLink2Name.Content = "";
                     //lbl_QuickLink2.Content = "";
-                    btn_QuickLink2.Content = "Add Url";
+                    btn_QuickLink2.Content = "Add --->";
 
                 }
                 if (Properties.Settings.Default.QuickLink3Name != "Void")
@@ -79,7 +78,7 @@ namespace MapleDesktop2._0
                 {
                     lbl_QuickLink3Name.Content = "";
                     //lbl_QuickLink3.Content = "";
-                    btn_QuickLink3.Content = "Add Url";
+                    btn_QuickLink3.Content = "Add --->";
 
                 }
                 if (Properties.Settings.Default.QuickLink4Name != "Void")
@@ -93,7 +92,7 @@ namespace MapleDesktop2._0
                 {
                     lbl_QuickLink4Name.Content = "";
                     //lbl_QuickLink4.Content = "";
-                    btn_QuickLink4.Content = "Add Url";
+                    btn_QuickLink4.Content = "Add --->";
 
                 }
                 if (Properties.Settings.Default.QuickLink5Name != "Void")
@@ -107,7 +106,7 @@ namespace MapleDesktop2._0
                 {
                     lbl_QuickLink5Name.Content = "";
                     //lbl_QuickLink5.Content = "";
-                    btn_QuickLink5.Content = "Add Url";
+                    btn_QuickLink5.Content = "Add --->";
 
                 }
                 if (Properties.Settings.Default.QuickLink4Name != "Void")
@@ -121,69 +120,58 @@ namespace MapleDesktop2._0
                 {
                     lbl_QuickLink6Name.Content = "";
                     //  lbl_QuickLink6.Content = "";
-                    btn_QuickLink6.Content = "Add Url";
+                    btn_QuickLink6.Content = "Add --->";
 
                 }
 
                 if (Properties.Settings.Default.QuickApp1Name != "")
                 {
 
-                    btn_QuickApp1.Content = Properties.Settings.Default.QuickApp1;
+                    //btn_QuickApp1.Content = Properties.Settings.Default.QuickApp1;
                     lbl_QuickApp1Name.Content = Properties.Settings.Default.QuickApp1Name;
                     btn_QuickApp1.Content = Properties.Settings.Default.QuickApp1Name;
 
                 }
                 else
                 {
-                    btn_QuickApp1.Content = "";
+                    //btn_QuickApp1.Content = "";
                     lbl_QuickApp1Name.Content = "";
-                    btn_QuickApp1.Content = "Add Path..";
+                    btn_QuickApp1.Content = "Add --->";
 
                 }
                 if (Properties.Settings.Default.QuickApp2Name != "")
                 {
 
-                    btn_QuickApp2.Content = Properties.Settings.Default.QuickApp2;
+                    //btn_QuickApp2.Content = Properties.Settings.Default.QuickApp2;
                     lbl_QuickApp2Name.Content = Properties.Settings.Default.QuickApp2Name;
                     btn_QuickApp2.Content = Properties.Settings.Default.QuickApp2Name;
 
                 }
                 else
                 {
-                    btn_QuickApp2.Content = "";
+                   // btn_QuickApp2.Content = "";
                     lbl_QuickApp2Name.Content = "";
-                    btn_QuickApp2.Content = "Add Path..";
+                    btn_QuickApp2.Content = "Add --->";
 
                 }
                 if (Properties.Settings.Default.QuickApp3Name != "")
                 {
 
-                    btn_QuickApp3.Content = Properties.Settings.Default.QuickApp3;
+                    //btn_QuickApp3.Content = Properties.Settings.Default.QuickApp3;
                     lbl_QuickApp3Name.Content = Properties.Settings.Default.QuickApp3Name;
                     btn_QuickApp3.Content = Properties.Settings.Default.QuickApp3Name;
 
                 }
                 else
                 {
-                    btn_QuickApp3.Content = "";
+                    //btn_QuickApp3.Content = "";
                     lbl_QuickApp3Name.Content = "";
-                    btn_QuickApp3.Content = "Add Path..";
+                    btn_QuickApp3.Content = "Add --->";
 
                 }
 
 
-
-
-
-                //if (Properties.Settings.Default.OpenAiToken != "Void")
-                //{
-                //    SetApiSaved();
-                //}
-
-
-
-                systemConfigRan = true;
-            }
+                   
 
         }
 

@@ -193,7 +193,7 @@ namespace MapleDesktop2._0
             {
                 question = new TextRange(rtb_MapleInput.Document.ContentStart, rtb_MapleInput.Document.ContentEnd).Text;
 
-                WriteToMapleConsole($"Me: {question}");
+                PostQuestionToMapleConsole($"User: {question}");
                 AskQuestion(question);
 
                 rtb_MapleInput.Document.Blocks.Clear();
@@ -219,9 +219,9 @@ namespace MapleDesktop2._0
 
 
             }
-            catch (Exception ex)
+            catch 
             {
-                // WriteToMapleConsole(ex.Message);
+                
             }
         }
     }

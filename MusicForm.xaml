@@ -35,9 +35,6 @@
         <RadioButton x:Name="rbn_PlayVideo" Content="Video" HorizontalAlignment="Left" Margin="239,53,0,0" VerticalAlignment="Top" FontSize="14" FontStyle="Italic" FontWeight="Bold" Foreground="Black" Background="White" Opacity="0.75" IsEnabled="False" Visibility="Hidden"/>
         <Label x:Name="lbl_PlayingStatus" Content="-" HorizontalAlignment="Center" Margin="0,141,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="53,173,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
-        <Label x:Name="lbl_PlayingName"  HorizontalAlignment="Left" Margin="98,173,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12">
-            <TextBlock x:Name="txb_PlayingName"  TextWrapping="WrapWithOverflow" Width="240" MaxWidth="240" FontSize="9" TextTrimming="WordEllipsis" >-</TextBlock>
-        </Label>
 
 
         <Label Content="Artist:" HorizontalAlignment="Left" Margin="53,210,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12"/>
@@ -68,6 +65,9 @@
             <TextBlock x:Name="txb_PlayingLink" TextDecorations="Underline" TextWrapping="WrapWithOverflow" Width="240" MaxWidth="240" Cursor="Hand" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" FontSize="9" TextTrimming="WordEllipsis" PreviewMouseLeftButtonUp="TextBlock_PreviewMouseLeftButtonUp" >-</TextBlock>
         </Label>
         <Button x:Name="btn_WebWindowToggle" Content="Web Window" Margin="47,415,0,0" VerticalAlignment="Top" Background="#FF080808" Foreground="#FFFCFBFB" BorderBrush="#FFFDFCFC" FontSize="6" HorizontalAlignment="Left" Width="56" Height="15" Click="btn_WebWindowToggle_Click"/>
+        <Label x:Name="lbl_PlayingName"  HorizontalAlignment="Left" Margin="98,173,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="12">
+            <TextBlock x:Name="txb_PlayingName"  TextWrapping="WrapWithOverflow" Width="240" MaxWidth="240" FontSize="9" TextTrimming="WordEllipsis" ><Run Text="-"/></TextBlock>
+        </Label>
 
     </Grid>
 

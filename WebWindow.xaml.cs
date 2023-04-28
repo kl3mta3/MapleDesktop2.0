@@ -1,5 +1,9 @@
 ﻿using CefSharp;
+using CefSharp.Handler;
+using CefSharp.Wpf;
+using System;
 using System.Windows;
+using System.Windows.Controls;
 using static MapleDesktop2._0.MusicSystem;
 
 namespace MapleDesktop2._0
@@ -10,13 +14,27 @@ namespace MapleDesktop2._0
     public partial class WebWindow : Window
     {
 
-
+        internal static ChromiumWebBrowser temp = new ChromiumWebBrowser();
         public WebWindow()
         {
             InitializeComponent();
+            webBrowser.BrowserSettings = temp.BrowserSettings;
 
         }
+        public static  void SetBrowser(ChromiumWebBrowser browser)
+        {
+           
+            temp = browser;
+           
 
+        }
+        public static void DebugWrite(string value)
+        {
+
+            MainWindow.currentMusicForm.WriteToDebugConsole(value);
+
+
+        }
         //internal static string url1 = "https://www.google.com";
 
         //internal static CefSharp.Wpf.ChromiumWebBrowser webBrowser = new CefSharp.Wpf.ChromiumWebBrowser();
@@ -29,11 +47,40 @@ namespace MapleDesktop2._0
             MainWindow.currentMusicForm.WriteToDebugConsole("Playing video: " + url);
 
             string builtURL = ($"{url}autoplay=1");
-            //Initate();
             webBrowser.Address = url;
 
 
         }
+
+
+
+        internal void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            MainWindow.currentMusicForm.WriteToDebugConsole("attempting to remove ad");
+            try
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    string script = @"
+                    var video = document.getElementsByTagName('video')[0];
+                    video.oncanplay = function () {
+                        var ad = document.getElementsByClassName('ad-container')[0];
+                        ad.remove();
+                    }
+                ";
+                    e.Frame.ExecuteJavaScriptAsync(script);
+                });
+            }
+            catch (Exception ex)
+            {
+
+                MainWindow.currentMusicForm.WriteToDebugConsole(ex.Message);
+            }
+            
+        }
+
+
+
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -100,5 +147,9 @@ namespace MapleDesktop2._0
             webBrowser.Address = song.url;
         }
     }
+
+
+    
+
 }
 

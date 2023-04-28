@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Threading.Tasks;
 using YoutubeExplode.Search;
@@ -18,7 +19,7 @@ namespace MapleDesktop2._0
         internal int currentTrackPlaylistId = 0;
         internal int currentVideoPlaylistId = 0;
         internal int playlistCount = 0;
-
+        internal string stroredRequest="";
         internal Song? currentTrack = new Song();
 
         internal Song urlDownloadResults = new Song();
@@ -54,6 +55,7 @@ namespace MapleDesktop2._0
         {
 
             MainWindow.currentMusicForm.WriteToDebugConsole($"Sent Request for '{request}'");
+            stroredRequest = request;
             await AddFileToPlaylist(request);
 
 
@@ -146,88 +148,21 @@ namespace MapleDesktop2._0
 
         }
 
-        //Video video = new Video();
-
-
-        //if (currentVideo == null)
-        //{
-
-        //    int nextVideoNumber = currentVideoPlaylistId + 1;
-        //    MainWindow.currentMusicForm.WriteToDebugConsole($"Current Video Track is Empty looking for Video");
-        //    MainWindow.currentMusicForm.WriteToDebugConsole($"currentVideoId is {currentVideoPlaylistId}");
-
-
-        //    foreach (Video track in videoPlaylist)
-        //    {
-
-        //        if (track.playlistId == nextVideoNumber)
-        //        {
-
-        //            currentVideo = track;
-        //            currentVideoPlaylistId = currentVideo.playlistId;
-        //            break;
-        //        }
-
-        //    }
-
-
-
-
-
-        //}
-        //else if (currentVideo != null)
-        //{
-
-        //    int nextVideoNumber = currentVideo.playlistId;
-        //    currentVideoNumber = currentVideo.playlistId;
-
-
-        //    foreach (Video track in videoPlaylist)
-        //    {
-
-        //        if (track.playlistId == nextVideoNumber)
-        //        {
-
-        //            currentVideo = track;
-        //            currentVideoPlaylistId = currentVideo.playlistId;
-        //            // helper.WriteToMapleConsole($"Next Video Found {track.title}");
-        //            break;
-        //        }
-
-        //    }
-
-
-
-        //}
-
-
-        // helper.DisplayCurrentSongInfo(currentTrack.title, currentTrack.author, currentTrack.length, currentTrack.url);
-        // helper.WriteToMapleConsole($"Video Playback Request Sent with path {video.path}");
-        //PlayVideo(currentVideo.path, sender, e); //use once video is understood more. 
-        //PlayVideo(currentTrack.url, sender, e);
-
-
-
-
-
-
+        
         private void PlaySong(string filePath, object sender, EventArgs e)
         {
 
-            MainWindow.currentMusicForm.WriteToDebugConsole($"Audio Playback Request Recieved for {filePath}");
+            MainWindow.currentMusicForm.WriteToDebugConsole($"Audio Playback Request Recieved for {currentTrack.title}");
 
-            //helper.DisplayCurrentSongInfo(currentTrack.title, currentTrack.author, currentTrack.url);
-            MainWindow.currentMusicForm.DisplayCurrentSongInfo(currentTrack.title, currentTrack.author, currentTrack.url, currentTrack.playlistId.ToString());
+            MainWindow.currentMusicForm.WriteToDebugConsole($"CurrentTrack is {currentTrack.title}");
+            //MainWindow.currentMusicForm.DisplayCurrentSongInfo(currentTrack.title, currentTrack.author, currentTrack.url, currentTrack.playlistId.ToString());
 
             string songLength = currentTrack.length;
             string currentprogress = $"0:00/{currentTrack.length}";
 
-            //helper.SetProgressBarCurrentTrackLength(songLength);
             MainWindow.musicForm.SetProgressBarCurrentTrackLength(songLength);
-            //helper.SetProgressBarCurrentProgress(currentprogress);
             MainWindow.currentMusicForm.SetProgressBarCurrentProgress(currentprogress);
-
-            MainWindow.currentMusicForm.WriteToDebugConsole($"Beging playback for {filePath} request sent");
+            MainWindow.currentMusicForm.WriteToDebugConsole($"Beging playback for {currentTrack.title} request sent");
             MainWindow.currentMusicForm.BeginPlayback(filePath);
 
         }
@@ -237,21 +172,10 @@ namespace MapleDesktop2._0
             MainWindow.currentMusicForm.WriteToDebugConsole("Video Begin Playback Triggered");
 
             MainWindow.currentMusicForm.PlayVideoInWindow(filePath);
-            //WriteToMapleConsole($" file path {filePath}");
-            //MapleHome.videoPlayer.videoPath = filePath;
-            //MapleHome.videoPlayer.playVideo = true;
-            //MapleHome.videoPlayer.Show();
-            //MapleHome.videoPlayer.PlayVideo();
-            //WriteToMapleConsole("Video Playback Started");
+
 
         }
 
-        private void EnableButtons(bool playing)
-        {
-            //btn_Play.Enabled = !playing;
-            //btn_Stop.Enabled = playing;
-            //btn_Resume.Enabled = playing;
-        }
 
 
         internal void DeleteNonSavedFiles()
@@ -285,105 +209,97 @@ namespace MapleDesktop2._0
 
 
             MainWindow.currentMusicForm.WriteToDebugConsole($"Play Video Triggered with filepath: {filePath}");
-
-            //    ///use once video playbave is more understood. 
-            //    MainWindow.videoPlayer.videoPath = filePath;
-            //    MainWindow.videoPlayer.playVideo = true;
-            /////
-
-            //MapleHome.videoPlayer.Show();
-            //MapleHome.videoPlayer.PlayVideo();
-            // helper.WriteToMapleConsole("Video Playback Started");
             MainWindow.music.BeginVideoPlayback(filePath);
         }
 
-        internal Song SongFromUrl(string url)
-        {
-            Song song = new Song();
-            DownloadAudioFromURL(url);
+        //internal Song SongFromUrl(string url)
+        //{
+        //    Song song = new Song();
+        //    DownloadAudioFromURL(url);
 
-            song = urlDownloadResults;
-            MainWindow.currentMusicForm.WriteToDebugConsole($"Song {song.title} returned from url {url}");
-            return song;
+        //    song = urlDownloadResults;
+        //    MainWindow.currentMusicForm.WriteToDebugConsole($"Song {song.title} returned from url {url}");
+        //    return song;
 
 
-        }
+        //}
 
-        internal async Task DownloadAudioFromURL(string url)
-        {
-            string result = url;
-            MainWindow.currentMusicForm.WriteToDebugConsole($"Search Results= {result}");
-            if (result == null)
-            {
+        //internal async Task DownloadAudioFromURL(string url)
+        //{
+        //    string result = url;
+        //    MainWindow.currentMusicForm.WriteToDebugConsole($"Search Results= {result}");
+        //    if (result == null)
+        //    {
 
-                MainWindow.currentMusicForm.WriteToDebugConsole("Error: Search Results Empty");
-                return;
+        //        MainWindow.currentMusicForm.WriteToDebugConsole("Error: Search Results Empty");
+        //        return;
 
-            }
-            var youtube = MainWindow.youtube;
-            var videoTitle = "";
-            var videoAuthor = "";
-            var videoDuration = "";
-            var videoDataUrl = "";
-            var videoUrl = result;
-            var videoData = await youtube.Videos.GetAsync(videoUrl);
-            string fileName = "";
-            string musicFolder = "";
-            string allegedPath = "";
-            // string path = "";
-            bool keepfile = false;
-            // MapleHome.debugConsole.WriteToDebugConsole($"Extracting MetaData");
+        //    }
+        //    var youtube = MainWindow.youtube;
+        //    var videoTitle = "";
+        //    var videoAuthor = "";
+        //    var videoDuration = "";
+        //    var videoDataUrl = "";
+        //    var videoUrl = result;
+        //    var videoData = await youtube.Videos.GetAsync(videoUrl);
+        //    string fileName = "";
+        //    string musicFolder = "";
+        //    string allegedPath = "";
+        //    // string path = "";
+        //    bool keepfile = false;
+        //    // MapleHome.debugConsole.WriteToDebugConsole($"Extracting MetaData");
 
-            videoTitle = videoData.Title;
-            videoAuthor = videoData.Author.ChannelTitle;
-            videoDuration = videoData.Duration.ToString();
-            videoDataUrl = videoData.Url;
-            MainWindow.currentMusicForm.WriteToDebugConsole($"Getting Audio Manifest for {videoTitle}");
-            var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoUrl);
-            MainWindow.currentMusicForm.WriteToDebugConsole($"getting AudioStream");
-            var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
-            MainWindow.currentMusicForm.WriteToDebugConsole($"Creating Audio Path");
-            fileName = $"{videoData.Title} by {videoData.Author.ChannelTitle} ";
-            musicFolder = MainWindow.musicSavePath;
-            allegedPath = System.IO.Path.Combine(musicFolder, $"{fileName}.{streamInfo.Container}");
+        //    videoTitle = videoData.Title;
+        //    videoAuthor = videoData.Author.ChannelTitle;
+        //    videoDuration = videoData.Duration.ToString();
+        //    videoDataUrl = videoData.Url;
+        //    MainWindow.currentMusicForm.WriteToDebugConsole($"Getting Audio Manifest for {videoTitle}");
+        //    var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoUrl);
+        //    MainWindow.currentMusicForm.WriteToDebugConsole($"getting AudioStream");
+        //    var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+        //    MainWindow.currentMusicForm.WriteToDebugConsole($"Creating Audio Path");
 
-            //filepath = NextAvailableFilename(allegedPath);
+        //    fileName = $"{videoData.Title} ";
+        //    musicFolder = MainWindow.musicSavePath;
+        //    allegedPath = System.IO.Path.Combine(musicFolder, $"{fileName}.{streamInfo.Container}");
 
-            if (!File.Exists(allegedPath))
-            {
-                MainWindow.currentMusicForm.WriteToDebugConsole($"Downloading Audio File");
+        //    //filepath = NextAvailableFilename(allegedPath);
 
-                await youtube.Videos.Streams.DownloadAsync(streamInfo, allegedPath);
+        //    if (!File.Exists(allegedPath))
+        //    {
+        //        MainWindow.currentMusicForm.WriteToDebugConsole($"Downloading Audio File");
 
-                if (saveMusic)
-                {
+        //        await youtube.Videos.Streams.DownloadAsync(streamInfo, allegedPath);
 
-                    keepfile = true;
-                }
-                else
-                {
-                    keepfile = false;
+        //        if (saveMusic)
+        //        {
 
-                }
-                MainWindow.currentMusicForm.WriteToDebugConsole($"Audio File Download Done");
+        //            keepfile = true;
+        //        }
+        //        else
+        //        {
+        //            keepfile = false;
 
-            }
-            else
-            {
-                keepfile = true;
-                MainWindow.currentMusicForm.WriteToDebugConsole($"Audio File Already Exists");
-            }
+        //        }
+        //        MainWindow.currentMusicForm.WriteToDebugConsole($"Audio File Download Done");
 
-            Song song = new Song();
-            song.author = videoAuthor;
-            song.title = videoTitle;
-            song.length = videoDuration;
-            song.url = videoDataUrl;
-            song.path = allegedPath;
-            song.keepFile = keepfile;
+        //    }
+        //    else
+        //    {
+        //        keepfile = true;
+        //        MainWindow.currentMusicForm.WriteToDebugConsole($"Audio File Already Exists");
+        //    }
 
-            urlDownloadResults = song;
-        }
+        //    Song song = new Song();
+        //    song.author = videoAuthor;
+        //    song.title = videoTitle;
+        //    song.length = videoDuration;
+        //    song.url = videoDataUrl;
+        //    song.path = allegedPath;
+        //    song.keepFile = keepfile;
+
+        //    urlDownloadResults = song;
+        //}
         private async Task AddFileToPlaylist(string request)
         {
 
@@ -420,13 +336,34 @@ namespace MapleDesktop2._0
             videoDataUrl = videoData.Url;
             MainWindow.currentMusicForm.WriteToDebugConsole($"Getting Audio Manifest for {videoTitle}");
             var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoUrl);
-            MainWindow.currentMusicForm.WriteToDebugConsole($"getting AudioStream");
-            var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
-            MainWindow.currentMusicForm.WriteToDebugConsole($"Creating Audio Path");
-            fileName = $"{videoData.Title} by {videoData.Author.ChannelTitle} ";
-            musicFolder = MainWindow.musicSavePath;
-            allegedPath = System.IO.Path.Combine(musicFolder, $"{fileName}.{streamInfo.Container}");
 
+            MainWindow.currentMusicForm.WriteToDebugConsole($"getting AudioStream");
+            var  streamInfo = streamManifest.GetAudioOnlyStreams().TryGetWithHighestBitrate();
+            
+            MainWindow.currentMusicForm.WriteToDebugConsole($"Creating Audio File Name");
+
+            MainWindow.currentMusicForm.WriteToDebugConsole($"Base Name = {videoData.Title}");
+            fileName = $"{videoData.Title}";
+            musicFolder = MainWindow.musicSavePath;
+            MainWindow.currentMusicForm.WriteToDebugConsole($"Using File Name {fileName}.{streamInfo.Container}");
+                string second = @"\"+stroredRequest+"."+streamInfo.Container;
+            MainWindow.currentMusicForm.WriteToDebugConsole("alleged path is "+musicFolder+@"\"+fileName+"."+streamInfo.Container);
+            MainWindow.currentMusicForm.WriteToDebugConsole("alt path is " + musicFolder + @"\" + second);
+            try
+            {
+                MainWindow.currentMusicForm.WriteToDebugConsole("Trying alleged path");
+            allegedPath = Path.Combine(musicFolder, $"{fileName}.{streamInfo.Container}");
+
+            }
+            catch (Exception ex)
+            {
+                MainWindow.currentMusicForm.WriteToDebugConsole("Main path failed using backup");
+                MainWindow.currentMusicForm.WriteToDebugConsole( ex.Message);
+                allegedPath = musicFolder + second;
+            }
+
+            //allegedPath = musicFolder+@"\"+fileName+"."+streamInfo.Container;
+            MainWindow.currentMusicForm.WriteToDebugConsole($"File {videoData.Title} created at {allegedPath}");
             if (MainWindow.playAudio || MainWindow.saveMusic || MainWindow.playVideo)
             {
 
@@ -479,8 +416,8 @@ namespace MapleDesktop2._0
 
 
                 MainWindow.currentMusicForm.WriteToDebugConsole($"song.title -{song.title}");
-                MainWindow.currentMusicForm.WriteToDebugConsole($" song.author-{song.author}");
-                MainWindow.currentMusicForm.WriteToDebugConsole($" song.length-{song.length}");
+                MainWindow.currentMusicForm.WriteToDebugConsole($"song.author-{song.author}");
+                MainWindow.currentMusicForm.WriteToDebugConsole($"song.length-{song.length}");
                 MainWindow.currentMusicForm.WriteToDebugConsole($"song.url-{song.url}");
                 MainWindow.currentMusicForm.WriteToDebugConsole($"song.path -{song.path}");
                 MainWindow.currentMusicForm.WriteToDebugConsole($"song.keepFile-{song.keepFile}");
@@ -497,7 +434,7 @@ namespace MapleDesktop2._0
                 song.playlistId = playlistid;
 
                 playlist.Add(song);
-
+                stroredRequest = "";
                 MainWindow.music.DisplayAudioPlaylist();
                 MainWindow.currentMusicForm.WriteToDebugConsole($" {song.title} added to Audio Playlist ");
                 MainWindow.currentMusicForm.WriteToDebugConsole($" playlist count {playlist.Count}");
@@ -656,7 +593,9 @@ namespace MapleDesktop2._0
                 //MainWindow.currentMusicForm.WriteToDebugConsole($"Next Track Found....Audio Playback Request for {track.title} Sent");
                 currentTrack = track;
                 currentTrackPlaylistId = track.playlistId;
-
+                MainWindow.currentMusicForm.WriteToDebugConsole($"CurrentTrack is  {currentTrack.title}");
+                MainWindow.currentMusicForm.WriteToDebugConsole($"CurrentTrack artist is  {currentTrack.author}");
+                MainWindow.currentMusicForm.WriteToDebugConsole($"CurrentTrack id is  {currentTrack.playlistId}");
                 PlaySong(track.path, sender, e);
                 selectedPlaylistTrack = 0;
             }

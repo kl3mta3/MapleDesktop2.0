@@ -43,14 +43,6 @@ namespace MapleDesktop2._0
         {
 
 
-
-
-
-
-
-
-
-
             if (txb_playlistTrackSelect.Text != "")
             {
                 MainWindow.music.selectedPlaylistTrack = Int32.Parse(txb_playlistTrackSelect.Text);

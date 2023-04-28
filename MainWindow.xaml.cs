@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 //using System.Windows.Shapes;
 using YoutubeExplode;
 
@@ -68,10 +69,13 @@ namespace MapleDesktop2._0
 
             }
 
-
+           
 
         }
-
+        internal static void WriteToDebugConsole(string value)
+        {
+            currentMusicForm.WriteToDebugConsole(value);
+        }
 
         private void btn_ChatForm_Click(object sender, RoutedEventArgs e)
         {

@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -17,7 +18,7 @@ namespace MapleDesktop2._0
         internal static DebugConsoleForm currentDebugConsole = new DebugConsoleForm();
         internal static PlaylistConsoleForm currentPlaylistConsole = new PlaylistConsoleForm();
         internal static WebWindow currentWebWindow = new WebWindow();
-
+        internal int index = 1;
         //internal static CefSharp.Wpf.ChromiumWebBrowser webBrowser = currentWebWindow.webBrowser;
         public MusicForm()
         {
@@ -32,7 +33,7 @@ namespace MapleDesktop2._0
 
 
             WriteToDebugConsole($"Audio BeginPlayback Triggered at {filename}");
-
+            MainWindow.currentMusicForm.DisplayCurrentSongInfo(MainWindow.music.currentTrack.title, MainWindow.music.currentTrack.author, MainWindow.music.currentTrack.url, MainWindow.music.currentTrack.playlistId.ToString());
             MainWindow.wavePlayer = null;
             SetPlayStatus("-Now Playing-");
             //Debug.Assert(MainWindow.wavePlayer == null);
@@ -47,33 +48,30 @@ namespace MapleDesktop2._0
             catch
             {
                 WriteToDebugConsole("Error Finding File Redownloading");
-                Song song = MainWindow.music.SongFromUrl(MainWindow.music.currentTrack.url);
-                MainWindow.audioFile = new AudioFileReader(song.path);
+                //Song song = MainWindow.music.SongFromUrl(MainWindow.music.currentTrack.url);
+                //MainWindow.audioFile = new AudioFileReader(song.path);
                 WriteToDebugConsole("File Read");
 
             }
             WriteToDebugConsole($"Audio file  {MainWindow.audioFile.FileName}");
             SetProgressBarMaxValue((int)MainWindow.audioFile.TotalTime.TotalSeconds);
             WriteToDebugConsole($"Audio file Length  {MainWindow.audioFile.Length}");
-            WriteToDebugConsole($"Audio file Length as int {(int)MainWindow.audioFile.Length}");
-            WriteToDebugConsole($"Audio file TotalTime {MainWindow.audioFile.TotalTime}");
-            WriteToDebugConsole($"Audio file TotalSeconds {MainWindow.audioFile.TotalTime.TotalSeconds}");
-            WriteToDebugConsole($"Audio file TotalSeconds as int {(int)MainWindow.audioFile.TotalTime.TotalSeconds}");
+
 
             MainWindow.audioFile.Volume = (float)volumeSlider3.Value / 100;
 
 
 
             SetProgressBarCurrentValue((int)MainWindow.audioFile.CurrentTime.TotalSeconds);
-            WriteToDebugConsole("SetProgressBarCurrentValue TO " + MainWindow.audioFile.CurrentTime.TotalSeconds.ToString());
-            WriteToDebugConsole("SetProgressBarMaxValue TO " + MainWindow.audioFile.TotalTime.TotalSeconds.ToString());
+            //WriteToDebugConsole("SetProgressBarCurrentValue TO " + MainWindow.audioFile.CurrentTime.TotalSeconds.ToString());
+            //WriteToDebugConsole("SetProgressBarMaxValue TO " + MainWindow.audioFile.TotalTime.TotalSeconds.ToString());
             MainWindow.wavePlayer.Init(MainWindow.audioFile);
 
-            WriteToDebugConsole($"Volume lvl {MainWindow.audioFile.Volume}");
+            //WriteToDebugConsole($"Volume lvl {MainWindow.audioFile.Volume}");
             MainWindow.wavePlayer.PlaybackStopped += OnPlaybackStopped;
             MainWindow.music.playingTrack = true;
             lbl_ProgressBarTrackLength.Content = FormatTimeSpan(MainWindow.audioFile.TotalTime);
-            WriteToDebugConsole("Starting Play");
+           // WriteToDebugConsole("Starting Play");
             SetPlayStatus("Now Playing:");
 
 
@@ -181,10 +179,10 @@ namespace MapleDesktop2._0
         internal void ClearSongInfoDisplay()
         {
 
-            lbl_PlayingName.Content = "";
+            txb_PlayingName.Text = "";
 
 
-            lbl_PlayingArtist.Content = "";
+            txb_PlayingArtist.Text = "";
 
             //lbl_PlayingLink.Content = "";
             txb_PlayingLink.Text = "";
@@ -251,6 +249,7 @@ namespace MapleDesktop2._0
             if (MainWindow.webWindowOpen)
             {
                 WebWindow current = new WebWindow();
+               
                 currentWebWindow = current;
                 currentWebWindow.Show();
 
@@ -364,11 +363,17 @@ namespace MapleDesktop2._0
 
         public void DisplayCurrentSongInfo(string _title, string _artist, string _url, string _id)
         {
-            //lbl_PlayingName.Content = _title;
+            WriteToDebugConsole($"Updating Song Info on Playlist");
+            WriteToDebugConsole($"Title= {_title}");
+            WriteToDebugConsole($"Artist= {_artist}");
+            WriteToDebugConsole($"ID= {_id}");
+
+            txb_PlayingName.Text = string.Empty;
             txb_PlayingName.Text = _title;
-            //lbl_PlayingArtist.Content = _artist;
+            //lbl_PlayingName.Content = _title;
+            txb_PlayingArtist.Text = string.Empty;
             txb_PlayingArtist.Text = _artist;
-            // lbl_PlayingLink.Content = _url;
+            // lbl_PlayingArtist.Content = _artist;
             txb_PlayingLink.Text = _url;
             lbl_PlayTrackPlaylistID.Content = _id;
         }
@@ -860,6 +865,16 @@ namespace MapleDesktop2._0
 
             toggleWebWindowConsole();
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            txb_PlayingName.Text = string.Empty;
+           txb_PlayingName.Text = "TEST"+index;
+            index++;
+            
+       
         }
     }
 }
